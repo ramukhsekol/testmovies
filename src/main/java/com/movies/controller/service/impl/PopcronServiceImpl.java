@@ -1,17 +1,28 @@
 package com.movies.controller.service.impl;
 
-import java.net.UnknownHostException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.movies.controller.service.PopcronService;
-import com.movies.util.IpAddressUtil;
 
 @Service
 public class PopcronServiceImpl implements PopcronService {
+	
+	@Override
+	public HttpResponse<String> getMoviesById(String pageIndex, String genreType) throws UnirestException, UnsupportedEncodingException {
+		String url = "https://tv-v2.api-fetch.website/movies/" + pageIndex;
+		if(StringUtils.hasText(genreType)) {
+			url = url + "?genre=" +  URLEncoder.encode(genreType, "UTF-8");
+		}
+		HttpResponse<String> response = Unirest.get(url).asString();
+		return response;
+	}
 
 	@Override
 	public HttpResponse<String> getmovierooms() throws UnirestException {
@@ -31,11 +42,8 @@ public class PopcronServiceImpl implements PopcronService {
 		return response;
 	}
 
-	@Override
-	public HttpResponse<String> getMovieTricket(String movieId) throws UnirestException, UnknownHostException {
-		String ipAddress = IpAddressUtil.getPublicIpAddress();
-		HttpResponse<String> response = Unirest.get("https://videospider.in/getticket.php?key=5HbImlTRhrrI7aEO&secret_key=s51qflw236t2ddlcbom9d0hfe800tp&video_id="+movieId+"&ip="+ipAddress).asString();
-		return response;
-	}
+	
+
+	
 
 }

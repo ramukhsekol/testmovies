@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SignIn - All Sports Fantasy</title>
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/lity/2.4.0/lity.css" />
+
+<style type="text/css">
+.col-md-4 {
+	margin-bottom: 15px;
+}
+
+.card-body {
+	background: #234238;
+	color: #fff;
+	text-align: center;
+}
+
+.card-body:hover {
+	background: #1abf8a;
+	color: #fff;
+	text-align: center;
+}
+</style>
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row" style="margin-top: 20px;">
+			<div class="col-md-8">
+				<div class="row">
+					<div class=col-md-12>
+						<iframe th:src="${link}" style="height: 496px; width: 100%"
+							allowscriptaccess="always" allowfullscreen="true" scrolling="no"></iframe>
+					</div>
+					<div class="col-md-12">
+						<table class="table table-striped">
+							<tbody>
+								<tr>
+									<th>Title</th>
+									<td th:text="${movie.title}"></td>
+								</tr>
+								<tr>
+									<th colspan="2">Description</th>
+								</tr>
+								<tr>
+									<td colspan="2"
+										th:text="${#strings.length(movie.overview)>500 ? #strings.substring(movie.overview,0,500) + '...' : movie.overview}"></td>
+								</tr>
+								<tr>
+									<th>Release Date</th>
+									<td th:text="${movie.release_date}"></td>
+								</tr>
+								<tr>
+									<th>Duration</th>
+									<td th:text="${movie.runtime + ' Mints'}"></td>
+								</tr>
+								<tr>
+									<th>Vote Average</th>
+									<td th:text="${movie.vote_average}"></td>
+								</tr>
+								<!-- <tr>
+							<th>Genres</th>
+							<td th:text="${#strings.listJoin(movie.genres,', ')}"></td>
+						</tr> -->
+								<tr>
+									<th>Popularity</th>
+									<td th:text="${movie.popularity}"></td>
+								</tr>
+								<tr>
+									<th>Vote Count</th>
+									<td th:text="${movie.vote_count}"></td>
+								</tr>
+							</tbody>
+						</table>
+						<div style="margin-top: 10px; margin-bottom: 20px;">
+							<a class="btn btn-danger"
+								th:href="${'https://www.youtube.com/watch?v='+trailer}"
+								data-lity>Watch Trailer</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card" style="position: fixed; height: 95%;">
+					<img
+						th:src="${movie.poster_path!=null and movie.poster_path!='' and movie.poster_path!=undefined?'https://image.tmdb.org/t/p/w600_and_h900_bestv2'+movie.poster_path:'http://www.reelviews.net/resources/img/default_poster.jpg'}"
+						class="card-img-top" alt="..." style="height: 100%;">
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/lity/2.4.0/lity.min.js"></script>
+</html>

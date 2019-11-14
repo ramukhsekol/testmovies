@@ -1,0 +1,62 @@
+<div class="row" style="margin-top: 20px;">
+	<div class="col-md-4 well" th:each="movie : ${movies}">
+		<a th:href="@{'/showmovie?movieId='+${movie.imdb_id}}" style="text-decoration: none;">
+			<div class="card">
+				<img th:src="${movie.images.fanart}" class="card-img-top" alt="..."
+					height="20%">
+				<div class="card-body">
+					<h5 class="card-title"
+						th:text="${#strings.length(movie.title)>15 ? #strings.substring(movie.title,0,15) + '...' : movie.title}">Movie
+						Title</h5>
+				</div>
+			</div>
+		</a>
+	</div>
+</div>
+<style>
+.col-md-4 {
+	max-width: 20% !important;
+}
+
+@media only screen and (max-width: 600px) {
+	.col-md-4 {
+		max-width: 100% !important;
+	}
+}
+
+@media only screen and (min-width:320px) {
+	.col-md-4 {
+		max-width: 100% !important;
+	}
+}
+
+@media only screen and (min-width:481px) {
+	.col-md-4 {
+		max-width: 100% !important;
+	}
+}
+
+@media only screen and (min-width:641px) {
+	.col-md-4 {
+		max-width: 100% !important;
+	}
+}
+
+@media only screen and (min-width:961px) {
+	.col-md-4 {
+		max-width: 20% !important;
+	}
+}
+
+@media only screen and (min-width:1025px) {
+	.col-md-4 {
+		max-width: 20% !important;
+	}
+}
+
+@media only screen and (min-width:1281px) {
+	.col-md-4 {
+		max-width: 20% !important;
+	}
+}
+</style>

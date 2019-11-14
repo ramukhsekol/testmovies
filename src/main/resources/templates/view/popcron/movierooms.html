@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SignIn - All Sports Fantasy</title>
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
+<style type="text/css">
+.col-md-3 {
+	margin-bottom: 10px;
+}
+
+.card-body {
+	background: #234238;
+	color: #fff;
+	text-align: center;
+}
+
+.card-body:hover {
+	background: #1abf8a;
+	color: #fff;
+	text-align: center;
+}
+</style>
+</head>
+<body>
+	<nav class="navbar navbar-expand-md navbar-light bg-dark fixed-top">
+		<a class="navbar-brand"><img
+			src="https://blog.eduonix.com/wp-content/uploads/2018/12/eduonix-logo.png"></a>
+		<button type="button" class="navbar-toggler bg-light"
+			data-toggle="collapse" data-target="#nav">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse justify-content-between" id="nav">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a
+					class="nav-link text-light font-weight-bold px-3" th:href="@{'/movies'}">ALL MOVIES</a>
+				</li>
+				<li class="nav-item"><a
+					class="nav-link text-light font-weight-bold px-3" th:href="@{'/movierooms'}">MOVIE ROOMS</a>
+				</li>
+				<li class="nav-item"><a
+					class="nav-link text-light font-weight-bold px-3" th:href="@{'/genres'}">GENRES</a>
+				</li>
+				<!-- <li class="nav-item dropdown" data-toggle="dropdown"><a
+					class="nav-link text-light font-weight-bold px-3 dropdown-toggle"
+					href="#">GENRES</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="#">Fast Food</a> <a
+							class="dropdown-item" href="#">Lunch</a> <a class="dropdown-item"
+							href="#">Dessert</a>
+					</div></li> -->
+				<li class="nav-item"><a
+					class="nav-link text-light font-weight-bold px-3" th:href="@{'/popular'}">POPULAR
+						MOVIES</a></li>
+
+				<li class="nav-item"><a
+					class="nav-link text-light font-weight-bold px-3" th:href="@{'/moviesbylanguage?language=te'}">TELUGU</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+
+	<div class="container-fluid" style="margin-top: 70px;">
+		<div class="row" style="margin-top: 20px;">
+			<div class="col-md-3" th:each="movieroom : ${movierooms}">
+				<div class="card">
+					<a th:href="@{'/getmovieroom/'+${movieroom}}"
+						style="text-decoration: none;"><div class="card-body"
+							th:text="${movieroom}"></div></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</html>
