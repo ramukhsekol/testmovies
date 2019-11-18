@@ -21,6 +21,7 @@ public class TicketServiceImpl implements TicketService {
 			ipAddress = IpAddressUtil.getPublicIpAddress();
 		}
 		HttpResponse<String> response = Unirest.get("https://videospider.in/getticket.php?key=5HbImlTRhrrI7aEO&secret_key=s51qflw236t2ddlcbom9d0hfe800tp&video_id="+movieId+"&ip="+ipAddress).asString();
+		System.out.println(response);
 		return response;
 	}
 
