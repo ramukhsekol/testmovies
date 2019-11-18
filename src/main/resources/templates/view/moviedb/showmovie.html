@@ -31,11 +31,51 @@
 </style>
 </head>
 <body>
+<nav class="navbar navbar-expand-md navbar-light bg-dark fixed-top">
+		<a class="navbar-brand"><img
+			src="https://blog.eduonix.com/wp-content/uploads/2018/12/eduonix-logo.png"></a>
+		<button type="button" class="navbar-toggler bg-light"
+			data-toggle="collapse" data-target="#nav">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse justify-content-between" id="nav">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a
+					class="nav-link text-light font-weight-bold px-3"
+					th:href="@{'/movies'}">ALL MOVIES</a></li>
+				<li class="nav-item"><a
+					class="nav-link text-light font-weight-bold px-3"
+					th:href="@{'/movierooms'}">MOVIE ROOMS</a></li>
+				<li class="nav-item"><a
+					class="nav-link text-light font-weight-bold px-3"
+					th:href="@{'/genres'}">GENRES</a></li>
+				<!-- <li class="nav-item dropdown" data-toggle="dropdown"><a
+					class="nav-link text-light font-weight-bold px-3 dropdown-toggle"
+					href="#">GENRES</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="#">Fast Food</a> <a
+							class="dropdown-item" href="#">Lunch</a> <a class="dropdown-item"
+							href="#">Dessert</a>
+					</div></li> -->
+				<li class="nav-item"><a
+					class="nav-link text-light font-weight-bold px-3"
+					th:href="@{'/popular'}">POPULAR MOVIES</a></li>
+
+				<li class="nav-item"><a
+					class="nav-link text-light font-weight-bold px-3"
+					th:href="@{'/moviesbylanguage?language=te'}">TELUGU</a></li>
+			</ul>
+		</div>
+	</nav>
+
 	<div class="container-fluid">
 		<div class="row" style="margin-top: 20px;">
 			<div class="col-md-4">
 				<div class="card">
-					<img th:src="${movie.poster_path!=null and movie.poster_path!='' and movie.poster_path!=undefined?'https://image.tmdb.org/t/p/w600_and_h900_bestv2'+movie.poster_path:'http://www.reelviews.net/resources/img/default_poster.jpg'}" class="card-img-top" alt="..." style="height: 500px;">
+					<img
+						th:src="${movie.poster_path!=null and movie.poster_path!='' and movie.poster_path!=undefined?'https://image.tmdb.org/t/p/w600_and_h900_bestv2'+movie.poster_path:'http://www.reelviews.net/resources/img/default_poster.jpg'}"
+						class="card-img-top" alt="..." style="height: 500px;">
 				</div>
 			</div>
 			<div class="col-md-8">
@@ -78,11 +118,11 @@
 						</tr>
 					</tbody>
 				</table>
-				<div style="margin-top: 10px;margin-bottom:20px;">
-					<a class="btn btn-success"
-						th:href="@{'/playdbmovie?movieId='+${movie.id}}">Watch
-						Movie</a> <a class="btn btn-danger" th:href="${'https://www.youtube.com/watch?v='+trailer}"
-						data-lity>Watch Trailer</a>
+				<div style="margin-top: 10px; margin-bottom: 20px;">
+					<a class="btn btn-success playmovie" onClick="playMovie()">Watch Movie</a> <a
+						class="btn btn-danger"
+						th:href="${'https://www.youtube.com/watch?v='+trailer}" data-lity>Watch
+						Trailer</a>
 				</div>
 			</div>
 		</div>
@@ -99,27 +139,35 @@
 
 
 <script type="text/javascript" th:inline="javascript">
+	var ipAddress = "";
+	var movieId = [[${movieId}]];
+	
 	$(function() {
 		$.get("https://ipapi.co/json/", function(response) {
-			console.log(response);
+			ipAddress = response.ip;
+			console.log(ipAddress);
 		});
-	});
-</script>	
+	});	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	$(".playmovie").on("click", function() {
+		window.location.href="/playdbmovie?movieId="+movieId+"&address="+ipAddress;
+	});	
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </html>

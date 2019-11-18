@@ -109,13 +109,13 @@ public class MoviedbController {
 				trailer = trailers.get(0).getKey();
 			}
 		}
-		
+		model.addAttribute("movieId", movieId);
 		model.addAttribute("trailer", trailer);
 		return "view/moviedb/showmovie";
 	}
 	
 	@GetMapping(value = "playdbmovie")
-	public String playdbmovie(@RequestParam String movieId, Model model) throws UnirestException, UnknownHostException {
+	public String playdbmovie(@RequestParam String movieId, @RequestParam String address, Model model) throws UnirestException, UnknownHostException {
 		HttpResponse<String> movieResponse = moviedbService.getMovieByMovieId(movieId);
 		Gson gson = new Gson();
 		Type movieType = new TypeToken<MovieDb>() {}.getType();
@@ -139,7 +139,7 @@ public class MoviedbController {
 		if(StringUtils.hasText(movieLink)) {
 			model.addAttribute("link", movieLink);
 		} else {
-			HttpResponse<String> ticketresponse = ticketService.getMovieTricket(movie.getImdb_id());
+			HttpResponse<String> ticketresponse = ticketService.getMovieTricket(movie.getImdb_id(), address);
 			model.addAttribute("link", "https://videospider.stream/getvideo?key=5HbImlTRhrrI7aEO&video_id="+movie.getImdb_id()+"&ticket="+ticketresponse.getBody());
 		}
 		

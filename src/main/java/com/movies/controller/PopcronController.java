@@ -120,19 +120,20 @@ public class PopcronController {
 			Gson gson = new Gson();
 			Type type = new TypeToken<Movies>() {}.getType();
 			Movies movie = gson.fromJson(response.getBody(), type);
+			model.addAttribute("movieId", movie.getImdb_id());
 			model.addAttribute("movie", movie);
 		}
 		return "view/popcron/showmovie";
 	}
 	
 	@GetMapping("/playmovie")
-	public String playmovie(@RequestParam String movieId, Model model) throws UnirestException, UnknownHostException {
+	public String playmovie(@RequestParam String movieId, @RequestParam String address, Model model) throws UnirestException, UnknownHostException {
 		HttpResponse<String> response = popcronService.getMoviesById(movieId);
 		if(response.getStatus() == HttpStatus.OK.value()) {
 			Gson gson = new Gson();
 			Type type = new TypeToken<Movies>() {}.getType();
 			Movies movie = gson.fromJson(response.getBody(), type);
-			HttpResponse<String> ticketresponse = ticketService.getMovieTricket(movieId);
+			HttpResponse<String> ticketresponse = ticketService.getMovieTricket(movieId, address);
 			System.out.println(ticketresponse.getBody());
 			model.addAttribute("link", "https://videospider.stream/getvideo?key=5HbImlTRhrrI7aEO&video_id="+movie.getImdb_id()+"&ticket="+ticketresponse.getBody());
 			model.addAttribute("movie", movie);
