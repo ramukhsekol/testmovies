@@ -27,11 +27,10 @@
 }
 
 .card-title {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
-
 </style>
 </head>
 <body>
@@ -63,12 +62,12 @@
 							href="#">Dessert</a>
 					</div></li> -->
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold px-3" th:href="@{'/popular'}">POPULAR
-						MOVIES</a></li>
+					class="nav-link text-light font-weight-bold px-3"
+					th:href="@{'/popular'}">POPULAR MOVIES</a></li>
 
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold px-3" href="@{'moviebylanguage?language=te'}">TELUGU</a>
-				</li>
+					class="nav-link text-light font-weight-bold px-3"
+					href="@{'moviebylanguage?language=te'}">TELUGU</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -93,18 +92,37 @@
 				});
 		
 		
-		$(document.body).on('touchmove', onScroll); // for mobile
-		$(window).on('scroll', onScroll); 
+		$(document.body).on('touchmove', onMobileScroll); // for mobile
+		$(window).on('scroll', onWebScroll); // for web
+		
+		function onMobileScroll() {
+			if ($(window).scrollTop() + window.innerHeight >= document.body.scrollHeight) {
+				pageIndex = pageIndex + 1;
+				$.get("/getdbmoviesbylanguage?pageIndex=" + pageIndex + "&language=" + language
+						function(response) {
+							$("#appenddata").append(response);
+						});
+			}
+		}
 
 		// callback
-		function onScroll(){ 
-		    if( $(window).scrollTop() + window.innerHeight >= document.body.scrollHeight ) { 
-		    	pageIndex = pageIndex + 1;
+		function onWebScroll() {
+				if($(window).scrollTop() + $(window).height() == getDocHeight()) {
+				pageIndex = pageIndex + 1;
 				$.get("/getdbmoviesbylanguage?pageIndex=" + pageIndex + "&language=" + language,
 						function(response) {
 							$("#appenddata").append(response);
-				});
-		    }
+						});
+			}
+		}
+		
+		function getDocHeight() {
+		    var D = document;
+		    return Math.max(
+		        D.body.scrollHeight, D.documentElement.scrollHeight,
+		        D.body.offsetHeight, D.documentElement.offsetHeight,
+		        D.body.clientHeight, D.documentElement.clientHeight
+		    );
 		}
 
 	});

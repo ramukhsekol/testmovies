@@ -33,7 +33,6 @@
 }
 
 
-
 </style>
 <style>
 * {box-sizing: border-box;}
@@ -158,12 +157,22 @@ body {
 			$("#appenddata").append(response);
 		});
 
-		$(document.body).on('touchmove', onScroll); // for mobile
-		$(window).on('scroll', onScroll);
+		$(document.body).on('touchmove', onMobileScroll); // for mobile
+		$(window).on('scroll', onWebScroll); // for web
+		
+		
+		function onMobileScroll() {
+			if ($(window).scrollTop() + window.innerHeight >= document.body.scrollHeight) {
+				pageIndex = pageIndex + 1;
+				$.get("/getdbmovies?pageIndex=" + pageIndex + "&search=" + search,
+						function(response) {
+							$("#appenddata").append(response);
+						});
+			}
+		}
 
 		// callback
-		function onScroll() {
-			/* if ($(window).scrollTop() + window.innerHeight >= document.body.scrollHeight) { */
+		function onWebScroll() {
 				if($(window).scrollTop() + $(window).height() == getDocHeight()) {
 				pageIndex = pageIndex + 1;
 				$.get("/getdbmovies?pageIndex=" + pageIndex + "&search=" + search,

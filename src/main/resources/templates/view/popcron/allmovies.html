@@ -91,13 +91,46 @@
 				});
 		
 		
-		$(document.body).on('touchmove', onScroll); // for mobile
-		$(window).on('scroll', onScroll); 
+		$(document.body).on('touchmove', onMobileScroll); // for mobile
+		$(window).on('scroll', onWebScroll); // for web
+		
+		
+		function onMobileScroll() {
+			if ($(window).scrollTop() + window.innerHeight >= document.body.scrollHeight) {
+				pageIndex = pageIndex + 1;
+				$.get("/getmovies?pageIndex=" + pageIndex+"&genre="+ genre,
+						function(response) {
+							$("#appenddata").append(response);
+						});
+			}
+		}
+
+		// callback
+		function onWebScroll() {
+				if($(window).scrollTop() + $(window).height() == getDocHeight()) {
+				pageIndex = pageIndex + 1;
+				$.get("/getmovies?pageIndex=" + pageIndex+"&genre="+ genre,
+						function(response) {
+							$("#appenddata").append(response);
+						});
+			}
+		}
+		
+		function getDocHeight() {
+		    var D = document;
+		    return Math.max(
+		        D.body.scrollHeight, D.documentElement.scrollHeight,
+		        D.body.offsetHeight, D.documentElement.offsetHeight,
+		        D.body.clientHeight, D.documentElement.clientHeight
+		    );
+		}
+		
+		
 
 		// callback
 		function onScroll(){ 
-		    /* if( $(window).scrollTop() + window.innerHeight >= document.body.scrollHeight ) {  */
-		    	if($(window).scrollTop() + $(window).height() == getDocHeight()) {
+		     if( $(window).scrollTop() + window.innerHeight >= document.body.scrollHeight ) {
+		    	/* if($(window).scrollTop() + $(window).height() == getDocHeight()) { */
 		    	pageIndex = pageIndex + 1;
 				$.get("/getmovies?pageIndex=" + pageIndex+"&genre="+ genre,
 						function(response) {
