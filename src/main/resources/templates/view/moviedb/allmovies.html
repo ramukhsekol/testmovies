@@ -25,6 +25,65 @@
 	color: #fff;
 	text-align: center;
 }
+
+.card-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+
+</style>
+<style>
+* {box-sizing: border-box;}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+
+
+.topnav input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+}
+
+.topnav .search-container button {
+  float: right;
+  padding: 6px 10px;
+  margin-top: 8px;
+  margin-right: 12px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.topnav .search-container button:hover {
+  background: #ccc;
+}
+
+@media screen and (max-width: 600px) {
+  .topnav .search-container {
+    float: none;
+  }
+  .topnav a, .topnav input[type=text], .topnav .search-container button {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+  }
+  .topnav input[type=text] {
+    border: 1px solid #ccc;  
+  }
+}
 </style>
 </head>
 <body>
@@ -56,17 +115,32 @@
 							href="#">Dessert</a>
 					</div></li> -->
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold px-3" th:href="@{'/popular'}">POPULAR
-						MOVIES</a></li>
+					class="nav-link text-light font-weight-bold px-3"
+					th:href="@{'/popular'}">POPULAR MOVIES</a></li>
 
 				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold px-3" th:href="@{'/moviesbylanguage?language=te'}">TELUGU</a>
-				</li>
+					class="nav-link text-light font-weight-bold px-3"
+					th:href="@{'/moviesbylanguage?language=te'}">TELUGU</a></li>
 			</ul>
 		</div>
 	</nav>
 
 	<div class="container-fluid" style="margin-top: 70px;">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="topnav">
+				<div class="search-container">
+					<form action="/dbmoviesearch" method="get">
+						<input type="text" placeholder="Search.." name="search" style="display: initial;width: 96%;">
+						<button type="submit">
+							<i class="fa fa-search" style="margin-bottom: 5px;vertical-align: sub;margin-left: 3px;"></i>
+						</button>
+					</form>
+				</div>
+				</div>
+
+			</div>
+		</div>
 		<div id="appenddata"></div>
 	</div>
 </body>
@@ -79,25 +153,52 @@
 <script type="text/javascript" th:inline="javascript">
 	$(function() {
 		var pageIndex = 1;
-		$.get("/getdbmovies?pageIndex=" + pageIndex,
-				function(response) {
-					$("#appenddata").append(response);
-				});
-		
-		
+		var search = [[${search}]]
+		$.get("/getdbmovies?pageIndex=" + pageIndex + "&search=" + search, function(response) {
+			$("#appenddata").append(response);
+		});
+
 		$(document.body).on('touchmove', onScroll); // for mobile
-		$(window).on('scroll', onScroll); 
+		$(window).on('scroll', onScroll);
 
 		// callback
-		function onScroll(){ 
-		    if( $(window).scrollTop() + window.innerHeight >= document.body.scrollHeight ) { 
-		    	pageIndex = pageIndex + 1;
-				$.get("/getdbmovies?pageIndex=" + pageIndex,
+		function onScroll() {
+			/* if ($(window).scrollTop() + window.innerHeight >= document.body.scrollHeight) { */
+				if($(window).scrollTop() + $(window).height() == getDocHeight()) {
+				pageIndex = pageIndex + 1;
+				$.get("/getdbmovies?pageIndex=" + pageIndex + "&search=" + search,
 						function(response) {
 							$("#appenddata").append(response);
-				});
-		    }
+						});
+			}
 		}
+		
+		function getDocHeight() {
+		    var D = document;
+		    return Math.max(
+		        D.body.scrollHeight, D.documentElement.scrollHeight,
+		        D.body.offsetHeight, D.documentElement.offsetHeight,
+		        D.body.clientHeight, D.documentElement.clientHeight
+		    );
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 	});
 </script>

@@ -21,6 +21,7 @@ import com.movies.controller.service.MoviedbService;
 import com.movies.controller.service.TicketService;
 import com.movies.mapping.MovieDb;
 import com.movies.mapping.Trailer;
+import com.movies.util.MoviesUtil;
 
 @Controller
 public class MoviedbController {
@@ -29,19 +30,39 @@ public class MoviedbController {
 	@Autowired private TicketService ticketService;
 	
 	@GetMapping("/popular")
-	public String popular(Model model) throws UnirestException{
+	public String popular(Model model) {
+		model.addAttribute("search", "");
 		return "view/moviedb/allmovies";
 	}
 	
+	@GetMapping("/dbmoviesearch")
+	public String dbmoviesearch(@RequestParam String search, Model model) {
+		model.addAttribute("search", search);
+		model.addAttribute("norecords", false);
+		return "view/moviedb/allmovies";
+	}
+	
+	
 	@GetMapping(value = "/getdbmovies")
-	public String getmoviesdbs(@RequestParam String pageIndex, Model model) throws UnirestException, UnsupportedEncodingException {
-		JSONArray jsonArray = moviedbService.getMoviesByCategory("popular", pageIndex);
-
-		Gson gson = new Gson();
-		Type type = new TypeToken<List<MovieDb>>() {
-		}.getType();
-		List<MovieDb> movies = gson.fromJson(jsonArray.toString(), type);
-		model.addAttribute("movies", movies);
+	public String getmoviesdbs(@RequestParam String pageIndex, @RequestParam String search, Model model) throws UnirestException, UnsupportedEncodingException {
+		String category = "";
+		if(StringUtils.hasText(search)) {
+			category = "movie";
+		} else {
+			category = "popular";
+		}
+		
+		JSONArray jsonArray = moviedbService.getMoviesByCategoryAndSearch(category, search, pageIndex);
+		
+		if(jsonArray.length() >0) {
+			Gson gson = new Gson();
+			Type type = new TypeToken<List<MovieDb>>() {
+			}.getType();
+			List<MovieDb> movies = gson.fromJson(jsonArray.toString(), type);
+			model.addAttribute("movies", movies);
+		} else {
+			model.addAttribute("movies", null);
+		}
 		return "view/moviedb/appendmovies";
 	}
 	
@@ -114,9 +135,14 @@ public class MoviedbController {
 		}
 		
 		model.addAttribute("trailer", trailer);
+		String movieLink = MoviesUtil.getMovie(movie.getImdb_id());
+		if(StringUtils.hasText(movieLink)) {
+			model.addAttribute("link", movieLink);
+		} else {
+			HttpResponse<String> ticketresponse = ticketService.getMovieTricket(movie.getImdb_id());
+			model.addAttribute("link", "https://videospider.stream/getvideo?key=5HbImlTRhrrI7aEO&video_id="+movie.getImdb_id()+"&ticket="+ticketresponse.getBody());
+		}
 		
-		HttpResponse<String> ticketresponse = ticketService.getMovieTricket(movie.getImdb_id());
-		model.addAttribute("link", "https://videospider.stream/getvideo?key=5HbImlTRhrrI7aEO&video_id="+movie.getImdb_id()+"&ticket="+ticketresponse.getBody());
 		return "view/moviedb/playmovie";
 	}	
 }

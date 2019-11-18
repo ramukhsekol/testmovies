@@ -1,7 +1,11 @@
 package com.movies.controller.service.impl;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import org.json.JSONArray;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
@@ -13,8 +17,14 @@ import com.movies.controller.service.MoviedbService;
 public class MoviedbServiceImpl implements MoviedbService {
 
 	@Override
-	public JSONArray getMoviesByCategory(String category, String pageIndex) throws UnirestException {
-		String url = "https://api.themoviedb.org/3/movie/"+category+"?api_key=663337055530cc77a3aa1d26fec365d5&page=" + pageIndex;
+	public JSONArray getMoviesByCategoryAndSearch(String category, String search, String pageIndex) throws UnirestException, UnsupportedEncodingException {
+		String url = "";
+		if(StringUtils.hasText(search)) {
+			url = "https://api.themoviedb.org/3/search/"+category+"?api_key=663337055530cc77a3aa1d26fec365d5&query="+URLEncoder.encode(search, "UTF-8")+"&page=" + pageIndex;
+		} else {
+			url = "https://api.themoviedb.org/3/movie/"+category+"?api_key=663337055530cc77a3aa1d26fec365d5&page=" + pageIndex;
+		}
+		
 		HttpResponse<JsonNode> jsonResponse = Unirest.get(url).asJson();
 		JSONArray jsonArray = jsonResponse.getBody().getObject().getJSONArray("results");
 		return jsonArray;
