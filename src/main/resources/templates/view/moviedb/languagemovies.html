@@ -98,7 +98,7 @@
 		function onMobileScroll() {
 			if ($(window).scrollTop() + window.innerHeight >= document.body.scrollHeight) {
 				pageIndex = pageIndex + 1;
-				$.get("/getdbmoviesbylanguage?pageIndex=" + pageIndex + "&language=" + language
+				$.get("/getdbmoviesbylanguage?pageIndex=" + pageIndex + "&language=" + language,
 						function(response) {
 							$("#appenddata").append(response);
 						});

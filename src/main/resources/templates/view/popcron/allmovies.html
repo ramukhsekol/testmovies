@@ -124,30 +124,6 @@
 		        D.body.clientHeight, D.documentElement.clientHeight
 		    );
 		}
-		
-		
-
-		// callback
-		function onScroll(){ 
-		     if( $(window).scrollTop() + window.innerHeight >= document.body.scrollHeight ) {
-		    	/* if($(window).scrollTop() + $(window).height() == getDocHeight()) { */
-		    	pageIndex = pageIndex + 1;
-				$.get("/getmovies?pageIndex=" + pageIndex+"&genre="+ genre,
-						function(response) {
-							$("#appenddata").append(response);
-				});
-		    }
-		}
-		
-		
-		function getDocHeight() {
-		    var D = document;
-		    return Math.max(
-		        D.body.scrollHeight, D.documentElement.scrollHeight,
-		        D.body.offsetHeight, D.documentElement.offsetHeight,
-		        D.body.clientHeight, D.documentElement.clientHeight
-		    );
-		}
 
 	});
 </script>
