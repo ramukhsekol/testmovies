@@ -1,9 +1,10 @@
 package com.movies.util;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.net.UnknownHostException;
+
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
 
 public class IpAddressUtil {
 
@@ -11,16 +12,21 @@ public class IpAddressUtil {
         String systemipaddress = ""; 
         try
         { 
-            URL url_name = new URL("https://ipapi.co/json/"); 
-            BufferedReader sc = new BufferedReader(new InputStreamReader(url_name.openStream())); 
-            systemipaddress = sc.readLine().trim(); 
+        	HttpResponse<JsonNode> response = Unirest.get("https://ipapi.co/json/").asJson();
+        	System.out.println(response.getBody().getObject().get("ip"));
+        	systemipaddress = (String) response.getBody().getObject().get("ip");
+			/*
+			 * URL url_name = new URL("https://ipapi.co/json/"); BufferedReader sc = new
+			 * BufferedReader(new InputStreamReader(url_name.openStream())); systemipaddress
+			 * = sc.readLine().trim();
+			 */
         } 
         catch (Exception e) 
         { 
             systemipaddress = "Cannot Execute Properly"; 
         } 
         System.out.println(systemipaddress);
-        return "175.100.151.150";
+        return systemipaddress;
 	}
 
 }
