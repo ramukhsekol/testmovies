@@ -72,10 +72,10 @@
 	<div class="container-fluid" style="margin-top: 70px;">
 		<div class="row" style="margin-top: 20px;">
 			<div class="col-md-4">
-				<div class="card">
+				<div class="card" style="position: fixed;height:calc(100vh - 76px);border-radius: 1%;width:32%;">
 					<img
 						th:src="${movie.poster_path!=null and movie.poster_path!='' and movie.poster_path!=undefined?'https://image.tmdb.org/t/p/w600_and_h900_bestv2'+movie.poster_path:'http://www.reelviews.net/resources/img/default_poster.jpg'}"
-						class="card-img-top" alt="..." style="height: 500px;">
+						class="card-img-top" alt="..." style="height: 100%;border-radius: 1%;">
 				</div>
 			</div>
 			<div class="col-md-8">
@@ -90,7 +90,7 @@
 						</tr>
 						<tr>
 							<td colspan="2"
-								th:text="${#strings.length(movie.overview)>500 ? #strings.substring(movie.overview,0,500) + '...' : movie.overview}"></td>
+								th:text="${movie.overview}"></td>
 						</tr>
 						<tr>
 							<th>Release Date</th>
@@ -104,10 +104,10 @@
 							<th>Vote Average</th>
 							<td th:text="${movie.vote_average}"></td>
 						</tr>
-						<!-- <tr>
+						<tr th:if="${genres!=null}">
 							<th>Genres</th>
-							<td th:text="${#strings.listJoin(movie.genres,', ')}"></td>
-						</tr> -->
+							<td th:text="${genres}"></td>
+						</tr>
 						<tr>
 							<th>Popularity</th>
 							<td th:text="${movie.popularity}"></td>

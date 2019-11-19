@@ -72,9 +72,8 @@
 	<div class="container-fluid" style="margin-top: 70px;">
 		<div class="row" style="margin-top: 20px;">
 			<div class="col-md-4">
-				<div class="card">
-					<img th:src="${movie.images.poster}" class="card-img-top" alt="..."
-						height="20%"> <a
+				<div class="card" style="position: fixed;height:calc(100vh - 76px);border-radius: 1%;width:32%;">
+					<img th:src="${movie.images.poster}" class="card-img-top" alt="..." style="height: 100%;border-radius: 1%;"> <a
 						th:href="@{'/showmovie?movieId='+${movie.imdb_id}}"
 						style="text-decoration: none;"> </a>
 				</div>
@@ -91,7 +90,7 @@
 						</tr>
 						<tr>
 							<td colspan="2"
-								th:text="${#strings.length(movie.synopsis)>210 ? #strings.substring(movie.synopsis,0,210) + '...' : movie.synopsis}"></td>
+								th:text="${movie.synopsis}"></td>
 						</tr>
 						<tr>
 							<th>Year</th>

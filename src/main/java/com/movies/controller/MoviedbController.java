@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.net.UnknownHostException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.movies.controller.service.MoviedbService;
 import com.movies.controller.service.TicketService;
+import com.movies.mapping.Genres;
 import com.movies.mapping.MovieDb;
 import com.movies.mapping.Trailer;
 import com.movies.util.MoviesUtil;
@@ -93,7 +95,15 @@ public class MoviedbController {
 		Type movieType = new TypeToken<MovieDb>() {}.getType();
 		MovieDb movie = gson.fromJson(movieResponse.getBody(), movieType);
 		model.addAttribute("movie", movie);
-		
+		if(movie!=null && movie.getGenres()!=null && movie.getGenres().size()>0) {
+			String genres =  movie.getGenres().stream()
+	                .map(Genres::getName)
+	                .collect(Collectors.joining(", "));
+			model.addAttribute("genres", genres);
+		} else {
+			model.addAttribute("genres", null);
+		}
+
 		JSONArray movietrailers = moviedbService.getTrailersByMovieId(movieId);
 		Type movieTrailer = new TypeToken<List<Trailer>>() {}.getType();
 		List<Trailer> trailers = gson.fromJson(movietrailers.toString(), movieTrailer);
@@ -121,6 +131,14 @@ public class MoviedbController {
 		Type movieType = new TypeToken<MovieDb>() {}.getType();
 		MovieDb movie = gson.fromJson(movieResponse.getBody(), movieType);
 		model.addAttribute("movie", movie);
+		if(movie!=null && movie.getGenres()!=null && movie.getGenres().size()>0) {
+			String genres =  movie.getGenres().stream()
+	                .map(Genres::getName)
+	                .collect(Collectors.joining(", "));
+			model.addAttribute("genres", genres);
+		} else {
+			model.addAttribute("genres", null);
+		}
 		
 		JSONArray movietrailers = moviedbService.getTrailersByMovieId(movieId);
 		Type movieTrailer = new TypeToken<List<Trailer>>() {}.getType();
