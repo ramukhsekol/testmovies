@@ -18,6 +18,7 @@ public class Movies {
 	private List<String> genres;
 	private String _id;
 	private String released;
+	private String link;
 
 	public Images getImages() {
 		return images;
@@ -95,7 +96,6 @@ public class Movies {
 		return genres;
 	}
 
-	
 	public void setGenres(List<String> genres) {
 		this.genres = genres;
 	}
@@ -115,4 +115,13 @@ public class Movies {
 	public void setReleased(String released) {
 		this.released = released;
 	}
+
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
+
 }
