@@ -15,11 +15,27 @@ import com.movies.controller.service.PopcronService;
 public class PopcronServiceImpl implements PopcronService {
 	
 	@Override
-	public HttpResponse<String> getMoviesById(String pageIndex, String genreType) throws UnirestException, UnsupportedEncodingException {
+	public HttpResponse<String> getMoviesById(String pageIndex, String genreType, String keyword) throws UnirestException, UnsupportedEncodingException {
+		boolean isFlag = false;
 		String url = "https://tv-v2.api-fetch.website/movies/" + pageIndex;
 		if(StringUtils.hasText(genreType)) {
-			url = url + "?genre=" +  URLEncoder.encode(genreType, "UTF-8");
+			if(isFlag) {
+				url = url + "&genre=" +  URLEncoder.encode(genreType, "UTF-8");
+				isFlag = true;
+			} else {
+				url = url + "?genre=" +  URLEncoder.encode(genreType, "UTF-8");
+			}
 		}
+		
+		if(StringUtils.hasText(keyword)) {
+			if(isFlag) {
+				url = url + "&keywords=" +  URLEncoder.encode(keyword, "UTF-8");
+				isFlag = true;
+			} else {
+				url = url + "?keywords=" +  URLEncoder.encode(keyword, "UTF-8");
+			}
+		}
+		
 		HttpResponse<String> response = Unirest.get(url).asString();
 		return response;
 	}

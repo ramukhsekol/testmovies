@@ -60,8 +60,8 @@ public class PopcronRestController {
 	}
 	
 	@GetMapping(value = "/getmovies")
-	public ResponseEntity<List<Movies>> getmovies(@RequestParam String pageIndex, @RequestParam String genre) throws UnirestException, UnsupportedEncodingException {
-		HttpResponse<String> response = popcronService.getMoviesById(pageIndex, genre);
+	public ResponseEntity<List<Movies>> getmovies(@RequestParam String pageIndex, @RequestParam String genre, @RequestParam String keyword) throws UnirestException, UnsupportedEncodingException {
+		HttpResponse<String> response = popcronService.getMoviesById(pageIndex, genre, keyword);
 		Gson gson = new Gson();
 		Type type = new TypeToken<List<Movies>>() {
 		}.getType();
