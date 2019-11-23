@@ -23,6 +23,9 @@ public class MovieDb {
 	private String imdb_id;
 	private Integer runtime;
 	private List<Genres> genres;
+	private String genre;
+	private String trailer;
+	private String link;
 
 	public Long getVote_count() {
 		return vote_count;
@@ -150,6 +153,30 @@ public class MovieDb {
 
 	public void setGenres(List<Genres> genres) {
 		this.genres = genres;
+	}
+
+	public String getGenre() {
+		return genre;
+	}
+
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
+
+	public String getTrailer() {
+		return trailer;
+	}
+
+	public void setTrailer(String trailer) {
+		this.trailer = trailer;
+	}
+
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
 	}
 
 	@Override
