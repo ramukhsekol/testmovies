@@ -26,6 +26,7 @@ import com.movies.controller.service.MoviedbService;
 import com.movies.controller.service.TicketService;
 import com.movies.mapping.Genres;
 import com.movies.mapping.MovieDb;
+import com.movies.mapping.Person;
 import com.movies.mapping.Trailer;
 import com.movies.util.MoviesUtil;
 
@@ -56,6 +57,26 @@ public class MoviedbRestController {
 		return new ResponseEntity<List<MovieDb>>(movies, HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/getpersons")
+	public ResponseEntity<List<Person>> getpersons(@RequestParam String pageIndex, @RequestParam String search) throws UnirestException, UnsupportedEncodingException {
+		List<Person> persons = new ArrayList<Person>();
+		JSONArray jsonArray = moviedbService.getpersons(pageIndex, search);
+		if(jsonArray.length() >0) {
+			Gson gson = new Gson();
+			Type type = new TypeToken<List<Person>>() {
+			}.getType();
+			persons = gson.fromJson(jsonArray.toString(), type);
+		} 
+		return new ResponseEntity<List<Person>>(persons, HttpStatus.OK);
+	}
+	
+	
+	
+	@GetMapping(value = "/getPersonMovies")
+	public ResponseEntity<List<MovieDb>> getPersonMovies(@RequestParam String pageIndex, @RequestParam String personId) throws UnirestException, UnsupportedEncodingException {
+		List<MovieDb> movies = moviedbService.getpersonmovies(pageIndex, personId);
+		return new ResponseEntity<List<MovieDb>>(movies, HttpStatus.OK);
+	}
 	
 	@GetMapping(value = "/getdbmoviesbylanguage")
 	public ResponseEntity<List<MovieDb>> getdbmoviesbylanguage(@RequestParam String pageIndex, @RequestParam String language, Model model) throws UnirestException, UnsupportedEncodingException {

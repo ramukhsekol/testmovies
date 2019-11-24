@@ -36,6 +36,7 @@ public class PopcronController {
 	@GetMapping("/movies")
 	public String movies(Model model) throws UnirestException{
 		model.addAttribute("genre", "");
+		model.addAttribute("keyword", "");
 		return "view/popcron/allmovies";
 	}
 	

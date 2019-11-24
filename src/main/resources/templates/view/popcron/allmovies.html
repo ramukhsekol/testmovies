@@ -85,7 +85,8 @@
 	$(function() {
 		var pageIndex = 1;
 		var genre = [[${genre}]];
-		$.get("/getmovies?pageIndex=" + pageIndex+"&genre="+ genre,
+		var keyword = [[${keyword}]];
+		$.get("/getmovies?pageIndex=" + pageIndex+"&genre="+ genre+"&keyword="+keyword,
 				function(response) {
 					$("#appenddata").append(response);
 				});
@@ -98,7 +99,7 @@
 		function onMobileScroll() {
 			if ($(window).scrollTop() + window.innerHeight >= document.body.scrollHeight) {
 				pageIndex = pageIndex + 1;
-				$.get("/getmovies?pageIndex=" + pageIndex+"&genre="+ genre,
+				$.get("/getmovies?pageIndex=" + pageIndex+"&genre="+ genre+"&keyword="+keyword,
 						function(response) {
 							$("#appenddata").append(response);
 						});
@@ -109,7 +110,7 @@
 		function onWebScroll() {
 				if($(window).scrollTop() + $(window).height() == getDocHeight()) {
 				pageIndex = pageIndex + 1;
-				$.get("/getmovies?pageIndex=" + pageIndex+"&genre="+ genre,
+				$.get("/getmovies?pageIndex=" + pageIndex+"&genre="+ genre+"&keyword="+keyword,
 						function(response) {
 							$("#appenddata").append(response);
 						});
