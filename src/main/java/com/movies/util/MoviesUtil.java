@@ -12,10 +12,7 @@ public class MoviesUtil {
 		movies.put("tt0374497", "https://www.youtube.com/embed/52QtjUD5g74");
 		movies.put("tt0858492", "https://www.youtube.com/embed/whIpRskedkQ");
 		movies.put("tt0805492", "https://www.youtube.com/embed/a08-34byBDY");
-		movies.put("tt1783411", "https://www.youtube.com/embed/NodmtYP9P-g");
-		
-		
-		
+		movies.put("tt1783411", "https://www.youtube.com/embed/NodmtYP9P-g");	
 	}
 	
 	public static String getMovie(String key) {

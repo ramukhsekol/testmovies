@@ -65,6 +65,7 @@ public class MoviedbController {
 		} else {
 			model.addAttribute("movies", null);
 		}
+		model.addAttribute("language", null);
 		return "view/moviedb/appendmovies";
 	}
 	
@@ -85,8 +86,54 @@ public class MoviedbController {
 		}.getType();
 		List<MovieDb> movies = gson.fromJson(jsonArray.toString(), type);
 		model.addAttribute("movies", movies);
+		model.addAttribute("language", language);
 		return "view/moviedb/appendmovies";
 	}
+	
+	
+	@GetMapping(value = "showlangmovie")
+	public String showlangmovie(@RequestParam String movieId, Model model) throws UnirestException, UnsupportedEncodingException {
+		HttpResponse<String> movieResponse = moviedbService.getMovieByMovieId(movieId);
+		Gson gson = new Gson();
+		Type movieType = new TypeToken<MovieDb>() {}.getType();
+		MovieDb movie = gson.fromJson(movieResponse.getBody(), movieType);
+		model.addAttribute("movie", movie);
+		if(movie!=null && movie.getGenres()!=null && movie.getGenres().size()>0) {
+			String genres =  movie.getGenres().stream()
+	                .map(Genres::getName)
+	                .collect(Collectors.joining(", "));
+			model.addAttribute("genres", genres);
+		} else {
+			model.addAttribute("genres", null);
+		}
+
+		JSONArray movietrailers = moviedbService.getTrailersByMovieId(movieId);
+		Type movieTrailer = new TypeToken<List<Trailer>>() {}.getType();
+		List<Trailer> trailers = gson.fromJson(movietrailers.toString(), movieTrailer);
+		String trailer = "";
+		if(trailers!=null && trailers.size()>1) {
+			for(Trailer mtrailer : trailers) {
+				if(StringUtils.hasText(mtrailer.getType()) && mtrailer.getType().equalsIgnoreCase("Trailer")) {
+					trailer = mtrailer.getKey();
+				}
+			}
+		} else {
+			if(trailers!=null && trailers.size() == 1)  {
+				trailer = trailers.get(0).getKey();
+			}
+		}
+		String movieLink = moviedbService.getYoutubeMovies(movie.getTitle());
+		if(StringUtils.hasText(movieLink)) {
+			model.addAttribute("link", movieLink);
+		} else {
+			model.addAttribute("link", null);
+		}
+		
+		model.addAttribute("movieId", movieId);
+		model.addAttribute("trailer", trailer);
+		return "view/moviedb/showmovie";
+	}
+	
 	
 	@GetMapping(value = "showdbmovie")
 	public String showdbmovie(@RequestParam String movieId, Model model) throws UnirestException {
@@ -121,6 +168,7 @@ public class MoviedbController {
 		}
 		model.addAttribute("movieId", movieId);
 		model.addAttribute("trailer", trailer);
+		model.addAttribute("link", null);
 		return "view/moviedb/showmovie";
 	}
 	

@@ -18,17 +18,8 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.movies.controller.service.MoviedbService;
 import com.movies.mapping.MovieDb;
-
-
-
-
-
-
-
-
-
-
-
+import com.movies.youtube.Videos;
+import com.movies.youtube.Youtube;
 
 @Service
 public class MoviedbServiceImpl implements MoviedbService {
@@ -108,6 +99,29 @@ public class MoviedbServiceImpl implements MoviedbService {
 			}
 		}
 		return movies;
+	}
+
+	@Override
+	public String getYoutubeMovies(String title) throws UnirestException, UnsupportedEncodingException {
+		String url = "https://www.googleapis.com/youtube/v3/search?part=snippet&q="+URLEncoder.encode(title, "UTF-8")+"&key=AIzaSyD70ZIfWEykYMxBWx69-XQpLFWiiZy-aH8";
+		HttpResponse<String> response  = Unirest.get(url).asString();
+		String link = null;
+		Gson gson = new Gson();
+		Type type = new TypeToken<Youtube>() {}.getType();
+		Youtube movie = gson.fromJson(response.getBody(), type);
+		if(movie!=null && movie.getItems()!=null && movie.getItems().size()>0) {
+			for(Videos videos : movie.getItems()) {
+				if(videos.getSnippet()!=null && StringUtils.hasText(videos.getSnippet().getTitle()) && 
+						(videos.getSnippet().getTitle().contains("Telugu Full Movie") || videos.getSnippet().getTitle().contains("Telugu Full Length HD Movie") 
+						|| videos.getSnippet().getTitle().contains("Telugu Full Length Movie"))) {
+					if(videos.getId()!=null && StringUtils.hasText(videos.getId().getVideoId())) {
+						link = videos.getId().getVideoId();
+					}
+					
+				}
+			}
+		}
+		return link;
 	}
 
 }
