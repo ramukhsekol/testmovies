@@ -30,11 +30,11 @@ public class PopcronController {
 	
 	@GetMapping("/")
 	public String movies() throws UnirestException{
-		return "redirect:/movies";
+		return "redirect:/movies/all";
 	}
 	
 	@GetMapping("/movies")
-	public String movies(Model model) throws UnirestException{
+	public String movies(Model model) throws UnirestException {
 		model.addAttribute("genre", "");
 		model.addAttribute("keyword", "");
 		return "view/popcron/allmovies";

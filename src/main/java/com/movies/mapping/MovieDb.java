@@ -7,22 +7,29 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MovieDb {
 
-	private Long vote_count;
+	private boolean adult;
+	private String backdrop_path;
+	private double budget;
+	private List<Genres> genres;
+	private String homepage;
 	private Long id;
-	private boolean video;
-	private double vote_average;
-	private String title;
-	private double popularity;
-	private String poster_path;
+	private String imdb_id;
 	private String original_language;
 	private String original_title;
-	private String backdrop_path;
-	private boolean adult;
 	private String overview;
+	private double popularity;
+	private String poster_path;
 	private String release_date;
-	private String imdb_id;
+	private double revenue;
 	private Integer runtime;
-	private List<Genres> genres;
+	private String status;
+	private String tagline;
+	private String title;
+	private boolean video;
+	private double vote_average;
+	private Long vote_count;
+
+	/* For Ionic App */
 	private String genre;
 	private String trailer;
 	private String link;
@@ -177,6 +184,76 @@ public class MovieDb {
 
 	public void setLink(String link) {
 		this.link = link;
+	}
+
+	/**
+	 * @return the budget
+	 */
+	public double getBudget() {
+		return budget;
+	}
+
+	/**
+	 * @param budget the budget to set
+	 */
+	public void setBudget(double budget) {
+		this.budget = budget;
+	}
+
+	/**
+	 * @return the homepage
+	 */
+	public String getHomepage() {
+		return homepage;
+	}
+
+	/**
+	 * @param homepage the homepage to set
+	 */
+	public void setHomepage(String homepage) {
+		this.homepage = homepage;
+	}
+
+	/**
+	 * @return the revenue
+	 */
+	public double getRevenue() {
+		return revenue;
+	}
+
+	/**
+	 * @param revenue the revenue to set
+	 */
+	public void setRevenue(double revenue) {
+		this.revenue = revenue;
+	}
+
+	/**
+	 * @return the status
+	 */
+	public String getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	/**
+	 * @return the tagline
+	 */
+	public String getTagline() {
+		return tagline;
+	}
+
+	/**
+	 * @param tagline the tagline to set
+	 */
+	public void setTagline(String tagline) {
+		this.tagline = tagline;
 	}
 
 	@Override

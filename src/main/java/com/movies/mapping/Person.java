@@ -10,6 +10,10 @@ public class Person {
 	private String known_for_department;
 	private String profile_path;
 	private String name;
+	private String birthday;
+	private String deathday;
+	private String place_of_birth;
+	private String homepage;
 
 	public Long getId() {
 		return id;
@@ -49,6 +53,38 @@ public class Person {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getDeathday() {
+		return deathday;
+	}
+
+	public void setDeathday(String deathday) {
+		this.deathday = deathday;
+	}
+
+	public String getPlace_of_birth() {
+		return place_of_birth;
+	}
+
+	public void setPlace_of_birth(String place_of_birth) {
+		this.place_of_birth = place_of_birth;
+	}
+
+	public String getHomepage() {
+		return homepage;
+	}
+
+	public void setHomepage(String homepage) {
+		this.homepage = homepage;
 	}
 
 }

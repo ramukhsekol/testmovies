@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div class="row" th:fragment="searchmenu">
+	<div class="col-md-12">
+		<div class="topnav">
+		<div class="search-container">
+			<form action="/dbmoviesearch" method="get">
+				<input type="text" placeholder="Search Movies" name="search" class="search">
+				<button type="submit">
+					<i class="fa fa-search" style="margin-bottom: 5px;vertical-align: sub;margin-left: 3px;"></i>
+				</button>
+			</form>
+		</div>
+		</div>
+	</div>
+</div>
+</html>

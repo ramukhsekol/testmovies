@@ -16,7 +16,12 @@ public interface MoviedbService {
 	JSONArray getTrailersByMovieId(String movieId) throws UnirestException;
 	JSONArray getMoviesByLanguage(String pageIndex, String language) throws UnirestException;
 	JSONArray getpersons(String pageIndex, String search) throws UnirestException, UnsupportedEncodingException;
-	List<MovieDb> getpersonmovies(String pageIndex, String personId)  throws UnirestException, UnsupportedEncodingException;
+	List<MovieDb> getpersonmovies(String personId)  throws UnirestException, UnsupportedEncodingException;
 	String getYoutubeMovies(String title) throws UnirestException, UnsupportedEncodingException;
+	JSONArray getMovieLanguages() throws UnirestException;
+	JSONArray getMovieGenres() throws UnirestException;
+	JSONArray getMoviesByGenre(String pageIndex, Integer genreId) throws UnirestException;
+	HttpResponse<String> getMovieCastByMovieId(String movieId) throws UnirestException;
+	HttpResponse<String> getPersonDetails(String personId) throws UnirestException;
 
 }

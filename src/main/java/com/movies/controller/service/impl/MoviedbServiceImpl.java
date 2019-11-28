@@ -74,9 +74,9 @@ public class MoviedbServiceImpl implements MoviedbService {
 	}
 
 	@Override
-	public List<MovieDb> getpersonmovies(String pageIndex, String personId)	throws UnirestException, UnsupportedEncodingException {
+	public List<MovieDb> getpersonmovies(String personId)	throws UnirestException, UnsupportedEncodingException {
 		String url = "https://api.themoviedb.org/3/person/" + personId
-				+ "/movie_credits?api_key=663337055530cc77a3aa1d26fec365d5&page=" + pageIndex;
+				+ "/movie_credits?api_key=663337055530cc77a3aa1d26fec365d5";
 		HttpResponse<JsonNode> jsonResponse = Unirest.get(url).asJson();
 		JSONArray cast = jsonResponse.getBody().getObject().getJSONArray("cast");
 		JSONArray crew = jsonResponse.getBody().getObject().getJSONArray("crew");
@@ -111,9 +111,9 @@ public class MoviedbServiceImpl implements MoviedbService {
 		Youtube movie = gson.fromJson(response.getBody(), type);
 		if(movie!=null && movie.getItems()!=null && movie.getItems().size()>0) {
 			for(Videos videos : movie.getItems()) {
-				if(videos.getSnippet()!=null && StringUtils.hasText(videos.getSnippet().getTitle()) && 
+				if(videos.getSnippet()!=null && StringUtils.hasText(videos.getSnippet().getTitle()) && !videos.getSnippet().getTitle().contains("Telugu Full Movie Scenes") &&
 						(videos.getSnippet().getTitle().contains("Telugu Full Movie") || videos.getSnippet().getTitle().contains("Telugu Full Length HD Movie") 
-						|| videos.getSnippet().getTitle().contains("Telugu Full Length Movie"))) {
+						|| videos.getSnippet().getTitle().contains("Telugu Full Length Movie") || videos.getSnippet().getTitle().contains("Full Movie")  || videos.getSnippet().getTitle().contains("Full Length Telugu Movie") )) {
 					if(videos.getId()!=null && StringUtils.hasText(videos.getId().getVideoId())) {
 						link = videos.getId().getVideoId();
 					}
@@ -122,6 +122,42 @@ public class MoviedbServiceImpl implements MoviedbService {
 			}
 		}
 		return link;
+	}
+
+	@Override
+	public JSONArray getMovieLanguages() throws UnirestException {
+		String url = "https://api.themoviedb.org/3/configuration/languages?api_key=663337055530cc77a3aa1d26fec365d5";
+		HttpResponse<JsonNode> jsonResponse  = Unirest.get(url).asJson();
+		JSONArray response = jsonResponse.getBody().getArray();
+		return response;
+	}
+
+	@Override
+	public JSONArray getMovieGenres() throws UnirestException {
+		String url = "https://api.themoviedb.org/3/genre/movie/list?api_key=663337055530cc77a3aa1d26fec365d5";
+		HttpResponse<JsonNode> jsonResponse  = Unirest.get(url).asJson();
+		JSONArray response = jsonResponse.getBody().getObject().getJSONArray("genres");
+		return response;
+	}
+
+	@Override
+	public JSONArray getMoviesByGenre(String pageIndex, Integer genreId) throws UnirestException {
+		String url = "https://api.themoviedb.org/3/discover/movie?api_key=663337055530cc77a3aa1d26fec365d5&page=" + pageIndex + "&with_genres=" + genreId;
+		HttpResponse<JsonNode> jsonResponse = Unirest.get(url).asJson();
+		JSONArray jsonArray = jsonResponse.getBody().getObject().getJSONArray("results");
+		return jsonArray;
+	}
+
+	@Override
+	public HttpResponse<String> getMovieCastByMovieId(String movieId) throws UnirestException {
+		HttpResponse<String> response = Unirest.get("https://api.themoviedb.org/3/movie/"+movieId+"/credits?api_key=663337055530cc77a3aa1d26fec365d5").asString();
+		return response;
+	}
+
+	@Override
+	public HttpResponse<String> getPersonDetails(String personId) throws UnirestException {
+		HttpResponse<String> response = Unirest.get("https://api.themoviedb.org/3/person/"+personId+"?api_key=663337055530cc77a3aa1d26fec365d5").asString();
+		return response;
 	}
 
 }

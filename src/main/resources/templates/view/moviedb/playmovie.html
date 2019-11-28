@@ -4,72 +4,18 @@
 <head>
 <meta charset="ISO-8859-1" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>SignIn - All Sports Fantasy</title>
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" />
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
+<title>Movie - All Sports Fantasy</title>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
 <link rel="stylesheet" th:href="@{/lity/lity.css}" />
+<link rel="stylesheet" th:href="@{/css/custom.css}" />
 
-<style type="text/css">
-.col-md-4 {
-	margin-bottom: 15px;
-}
-
-.card-body {
-	background: #234238;
-	color: #fff;
-	text-align: center;
-}
-
-.card-body:hover {
-	background: #1abf8a;
-	color: #fff;
-	text-align: center;
-}
-</style>
 </head>
 <body>
-<nav class="navbar navbar-expand-md navbar-light bg-dark fixed-top">
-		<a class="navbar-brand"><img
-			src="https://blog.eduonix.com/wp-content/uploads/2018/12/eduonix-logo.png"></a>
-		<button type="button" class="navbar-toggler bg-light"
-			data-toggle="collapse" data-target="#nav">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-
-		<div class="collapse navbar-collapse justify-content-between" id="nav">
-			<ul class="navbar-nav">
-				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold px-3"
-					th:href="@{'/movies'}">ALL MOVIES</a></li>
-				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold px-3"
-					th:href="@{'/movierooms'}">MOVIE ROOMS</a></li>
-				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold px-3"
-					th:href="@{'/genres'}">GENRES</a></li>
-				<!-- <li class="nav-item dropdown" data-toggle="dropdown"><a
-					class="nav-link text-light font-weight-bold px-3 dropdown-toggle"
-					href="#">GENRES</a>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="#">Fast Food</a> <a
-							class="dropdown-item" href="#">Lunch</a> <a class="dropdown-item"
-							href="#">Dessert</a>
-					</div></li> -->
-				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold px-3"
-					th:href="@{'/popular'}">POPULAR MOVIES</a></li>
-
-				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold px-3"
-					th:href="@{'/moviesbylanguage?language=te'}">TELUGU</a></li>
-			</ul>
-		</div>
-	</nav>
-
-	<div class="container-fluid" style="margin-top: 70px;">
-		<div class="row" style="margin-top: 20px;">
+<nav th:replace="fragments/menuheader :: menuheader"></nav>
+	<div class="container-fluid">
+	<div th:replace="fragments/searchmenu :: searchmenu"></div>
+		<div class="row rowtop">
 			<div class="col-md-8">
 				<div class="row">
 					<div class=col-md-12>
@@ -116,16 +62,43 @@
 								</tr>
 							</tbody>
 						</table>
-						<div style="margin-top: 10px; margin-bottom: 20px;">
-							<a class="btn btn-danger"
-								th:href="${'https://www.youtube.com/watch?v='+trailer}"
-								data-lity>Watch Trailer</a>
+						
+						<div class="row">
+							<div class="col-md-12"><h4 style="color:blue;font-weight: bolder;">CAST</h4></div>
+							<div class="col-md-4 well" th:each="cast : ${movieCasting.cast}">
+								<div class="card">
+									<img th:src="${cast.profile_path!=null and cast.profile_path!='' and cast.profile_path!=undefined?'https://image.tmdb.org/t/p/w235_and_h235_face/'+cast.profile_path:'http://www.reelviews.net/resources/img/default_poster.jpg'}" class="card-img-top" alt="..." style="height: 150px;"> 
+										<div class="card-body">
+											<a th:href="@{'getpersonmovies?personId='+${cast.id}}" style="text-decoration: none;">
+												<h5 class="card-title" th:text="${cast.name}" style="height: 20px;margin-bottom: auto;color:white;">cast Name</h5>
+											</a>
+										</div>
+								</div>
+							</div>
+							<div class="col-md-12"><h4 style="color:blue;font-weight: bolder;">CREW</h4></div>
+							<div class="col-md-4 well" th:each="crew : ${movieCasting.crew}">
+								<div class="card">
+									<img th:src="${crew.profile_path!=null and crew.profile_path!='' and crew.profile_path!=undefined?'https://image.tmdb.org/t/p/w235_and_h235_face/'+crew.profile_path:'http://www.reelviews.net/resources/img/default_poster.jpg'}" class="card-img-top" alt="..." style="height: 150px;"> 
+										<div class="card-body">
+											<a th:href="@{'getpersonmovies?personId='+${crew.id}}" style="text-decoration: none;">
+												<h5 class="card-title" th:text="${crew.name}" style="height: 20px;margin-bottom: auto;color:white;">Crew Name</h5>
+											</a>
+										</div>
+								</div>
+							</div>
+						</div><br/><br/><br/>
+						<div class="footer">
+							<div style="margin-left: 23%;">
+								<a class="btn btn-danger"
+									th:href="${'https://www.youtube.com/watch?v='+trailer}"
+									data-lity>Watch Trailer</a>
+							</div>	
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-4">
-				<div class="card" style="position: fixed;height:calc(100vh - 76px);border-radius: 1%;margin-right:10px;">
+			<div class="col-md-4" style="margin-left: -22px;">
+				<div class="card rightfixed">
 					<img
 						th:src="${movie.poster_path!=null and movie.poster_path!='' and movie.poster_path!=undefined?'https://image.tmdb.org/t/p/w600_and_h900_bestv2'+movie.poster_path:'http://www.reelviews.net/resources/img/default_poster.jpg'}"
 						class="card-img-top" alt="..." style="height: 100%;border-radius: 1%;">

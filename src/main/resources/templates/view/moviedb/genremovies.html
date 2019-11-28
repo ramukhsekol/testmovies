@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>All Movies - Movie Fantasy</title>
+<title>Movies - Movie Fantasy</title>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" />
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
 <link rel="stylesheet" th:href="@{/css/custom.css}" />
@@ -15,7 +16,6 @@
 		<div class="rowtop">
 			<div id="appenddata"></div>
 		</div>
-		
 	</div>
 </body>
 
@@ -26,18 +26,19 @@
 <script type="text/javascript" th:inline="javascript">
 $(function() {
 	var pageIndex = 1;
-	var search = [[${search}]]
-	$.get("/getdbmovies?pageIndex=" + pageIndex + "&search=" + search, function(response) {
+	var genreId = [[${genreId}]];
+	$.get("/getdbmoviesbygenre?pageIndex=" + pageIndex + "&genreId=" + genreId, function(response) {
 		$("#appenddata").append(response);
 	});
-
+	
+	
 	$(document.body).on('touchmove', onMobileScroll); // for mobile
 	$(window).on('scroll', onWebScroll); // for web
 	
 	function onMobileScroll() {
 		if ($(window).scrollTop() + window.innerHeight >= document.body.scrollHeight) {
 			pageIndex = pageIndex + 1;
-			$.get("/getdbmovies?pageIndex=" + pageIndex + "&search=" + search, function(response) {
+			$.get("/getdbmoviesbygenre?pageIndex=" + pageIndex + "&genreId=" + genreId, function(response) {
 				$("#appenddata").append(response);
 			});
 		}
@@ -47,7 +48,7 @@ $(function() {
 	function onWebScroll() {
 			if($(window).scrollTop() + $(window).height() == getDocHeight()) {
 			pageIndex = pageIndex + 1;
-			$.get("/getdbmovies?pageIndex=" + pageIndex + "&search=" + search, function(response) {
+			$.get("/getdbmoviesbygenre?pageIndex=" + pageIndex + "&genreId=" + genreId, function(response) {
 				$("#appenddata").append(response);
 			});
 		}
@@ -61,6 +62,7 @@ $(function() {
 	        D.body.clientHeight, D.documentElement.clientHeight
 	    );
 	}
+
 });
 </script>
 </html>

@@ -74,7 +74,7 @@ public class MoviedbRestController {
 	
 	@GetMapping(value = "/getPersonMovies")
 	public ResponseEntity<List<MovieDb>> getPersonMovies(@RequestParam String pageIndex, @RequestParam String personId) throws UnirestException, UnsupportedEncodingException {
-		List<MovieDb> movies = moviedbService.getpersonmovies(pageIndex, personId);
+		List<MovieDb> movies = moviedbService.getpersonmovies(personId);
 		return new ResponseEntity<List<MovieDb>>(movies, HttpStatus.OK);
 	}
 	

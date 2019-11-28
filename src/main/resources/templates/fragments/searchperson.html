@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div class="row" th:fragment="searchperson">
+	<div class="col-md-12">
+		<div class="topnav">
+		<div class="search-container">
+			<form action="/searchperson" method="get">
+				<input type="text" placeholder="Search Person.." name="search" class="search">
+				<button type="submit">
+					<i class="fa fa-search" style="margin-bottom: 5px;vertical-align: sub;margin-left: 3px;"></i>
+				</button>
+			</form>
+		</div>
+		</div>
+	</div>
+</div>
+</html>
