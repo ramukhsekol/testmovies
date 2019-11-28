@@ -3,7 +3,10 @@ package com.movies.controller;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.json.JSONArray;
@@ -20,6 +23,8 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.movies.controller.service.MoviedbService;
 import com.movies.controller.service.TicketService;
+import com.movies.mapping.Cast;
+import com.movies.mapping.Crew;
 import com.movies.mapping.Genres;
 import com.movies.mapping.Languages;
 import com.movies.mapping.MovieCasting;
@@ -208,6 +213,16 @@ public class MoviedbController {
 		HttpResponse<String> movieCastResponse = moviedbService.getMovieCastByMovieId(movieId);
 		Type movieCast = new TypeToken<MovieCasting>() {}.getType();
 		MovieCasting movieCasting = gson.fromJson(movieCastResponse.getBody(), movieCast);
+		if(movieCasting!=null) {
+			if(movieCasting.getCast()!=null && movieCasting.getCast().size()>0) {
+				Collection<Cast> casts = movieCasting.getCast().stream().collect(Collectors.toConcurrentMap(Cast::getName, Function.identity(), (p, q) -> p)).values();
+				movieCasting.setCast(casts.stream().collect(Collectors.toCollection(ArrayList::new)));
+			}
+			if(movieCasting.getCrew()!=null && movieCasting.getCrew().size()>0) {
+				Collection<Crew> crews = movieCasting.getCrew().stream().collect(Collectors.toConcurrentMap(Crew::getName, Function.identity(), (p, q) -> p)).values();
+				movieCasting.setCrew(crews.stream().collect(Collectors.toCollection(ArrayList::new)));
+			}
+		}
 		model.addAttribute("movieCasting", movieCasting);
 		model.addAttribute("movieId", movieId);
 		model.addAttribute("trailer", trailer);
@@ -266,6 +281,17 @@ public class MoviedbController {
 		HttpResponse<String> movieCastResponse = moviedbService.getMovieCastByMovieId(movieId);
 		Type movieCast = new TypeToken<MovieCasting>() {}.getType();
 		MovieCasting movieCasting = gson.fromJson(movieCastResponse.getBody(), movieCast);
+		if(movieCasting!=null) {
+			if(movieCasting.getCast()!=null && movieCasting.getCast().size()>0) {
+				Collection<Cast> casts = movieCasting.getCast().stream().collect(Collectors.toConcurrentMap(Cast::getName, Function.identity(), (p, q) -> p)).values();
+				movieCasting.setCast(casts.stream().collect(Collectors.toCollection(ArrayList::new)));
+			}
+			if(movieCasting.getCrew()!=null && movieCasting.getCrew().size()>0) {
+				Collection<Crew> crews = movieCasting.getCrew().stream().collect(Collectors.toConcurrentMap(Crew::getName, Function.identity(), (p, q) -> p)).values();
+				movieCasting.setCrew(crews.stream().collect(Collectors.toCollection(ArrayList::new)));
+			}
+		}
+		
 		model.addAttribute("movieCasting", movieCasting);
 		model.addAttribute("movieId", movieId);
 		model.addAttribute("trailer", trailer);
@@ -315,6 +341,16 @@ public class MoviedbController {
 		HttpResponse<String> movieCastResponse = moviedbService.getMovieCastByMovieId(movieId);
 		Type movieCast = new TypeToken<MovieCasting>() {}.getType();
 		MovieCasting movieCasting = gson.fromJson(movieCastResponse.getBody(), movieCast);
+		if(movieCasting!=null) {
+			if(movieCasting.getCast()!=null && movieCasting.getCast().size()>0) {
+				Collection<Cast> casts = movieCasting.getCast().stream().collect(Collectors.toConcurrentMap(Cast::getName, Function.identity(), (p, q) -> p)).values();
+				movieCasting.setCast(casts.stream().collect(Collectors.toCollection(ArrayList::new)));
+			}
+			if(movieCasting.getCrew()!=null && movieCasting.getCrew().size()>0) {
+				Collection<Crew> crews = movieCasting.getCrew().stream().collect(Collectors.toConcurrentMap(Crew::getName, Function.identity(), (p, q) -> p)).values();
+				movieCasting.setCrew(crews.stream().collect(Collectors.toCollection(ArrayList::new)));
+			}
+		}
 		model.addAttribute("movieCasting", movieCasting);
 		
 		return "view/moviedb/playmovie";
