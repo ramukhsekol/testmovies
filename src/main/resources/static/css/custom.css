@@ -86,18 +86,16 @@ body {
 
 .fixedposition {
 	position: fixed;
-    height: calc(100vh - 103px);
+    height: calc(100vh - 112px);
     border-radius: 1%;
     width: 32%;
-    margin-top: -9px;
 }
 
 .rightfixed {
 position: fixed;
-height:calc(100vh - 103px);
+height: calc(100vh - 112px);
 border-radius: 1%;
 margin-right:10px;
-margin-top: -9px;
 }
 
 
