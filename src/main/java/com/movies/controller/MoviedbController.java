@@ -226,7 +226,7 @@ public class MoviedbController {
 		model.addAttribute("movieCasting", movieCasting);
 		model.addAttribute("movieId", movieId);
 		model.addAttribute("trailer", trailer);
-		if(movie!=null && StringUtils.hasText(movie.getOriginal_language()) && movie.getOriginal_language().equalsIgnoreCase("te")) {
+		if(movie!=null && StringUtils.hasText(movie.getOriginal_language()) && (movie.getOriginal_language().equalsIgnoreCase("te") || MoviesUtil.isMovieExist(movie.getOriginal_title()))) {
 			String movieLink = moviedbService.getYoutubeMovies(movie.getTitle());
 			if(StringUtils.hasText(movieLink)) {
 				model.addAttribute("link", movieLink);

@@ -103,7 +103,8 @@ public class MoviedbServiceImpl implements MoviedbService {
 
 	@Override
 	public String getYoutubeMovies(String title) throws UnirestException, UnsupportedEncodingException {
-		String url = "https://www.googleapis.com/youtube/v3/search?part=snippet&q="+URLEncoder.encode(title, "UTF-8")+"&key=AIzaSyD70ZIfWEykYMxBWx69-XQpLFWiiZy-aH8";
+		String url = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&q="+URLEncoder.encode(title, "UTF-8")+"&key=AIzaSyD70ZIfWEykYMxBWx69-XQpLFWiiZy-aH8";
+		
 		HttpResponse<String> response  = Unirest.get(url).asString();
 		String link = null;
 		Gson gson = new Gson();
@@ -112,10 +113,11 @@ public class MoviedbServiceImpl implements MoviedbService {
 		if(movie!=null && movie.getItems()!=null && movie.getItems().size()>0) {
 			for(Videos videos : movie.getItems()) {
 				if(videos.getSnippet()!=null && StringUtils.hasText(videos.getSnippet().getTitle()) && !videos.getSnippet().getTitle().contains("Telugu Full Movie Scenes") &&
-						(videos.getSnippet().getTitle().contains("Telugu Full Movie") || videos.getSnippet().getTitle().contains("Telugu Full Length HD Movie") 
-						|| videos.getSnippet().getTitle().contains("Telugu Full Length Movie") || videos.getSnippet().getTitle().contains("Full Movie")  || videos.getSnippet().getTitle().contains("Full Length Telugu Movie") )) {
+						(videos.getSnippet().getTitle().contains("Telugu Full Movie") || videos.getSnippet().getTitle().contains("Full Comedy Movie") || videos.getSnippet().getTitle().contains("Telugu Full HD Movie") ||
+								videos.getSnippet().getTitle().contains("Telugu Full Length HD Movie") || videos.getSnippet().getTitle().contains("Telugu Full Length Comedy Entertainer")
+						|| videos.getSnippet().getTitle().contains("Telugu Full Length Movie") || videos.getSnippet().getTitle().contains("Full Length Telugu Movie") )) {
 					if(videos.getId()!=null && StringUtils.hasText(videos.getId().getVideoId())) {
-						link = videos.getId().getVideoId();
+						return videos.getId().getVideoId();
 					}
 					
 				}
