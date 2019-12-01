@@ -4,72 +4,18 @@
 <head>
 <meta charset="ISO-8859-1" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>SignIn - All Sports Fantasy</title>
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" />
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
+<title>Movie - All Sports Fantasy</title>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
 <link rel="stylesheet" th:href="@{/lity/lity.css}" />
-
-<style type="text/css">
-.col-md-4 {
-	margin-bottom: 15px;
-}
-
-.card-body {
-	background: #234238;
-	color: #fff;
-	text-align: center;
-}
-
-.card-body:hover {
-	background: #1abf8a;
-	color: #fff;
-	text-align: center;
-}
-</style>
+<link rel="stylesheet" th:href="@{/css/custom.css}" />
+<link rel="stylesheet" th:href="@{/css/main.css}" />
 </head>
 <body>
-<nav class="navbar navbar-expand-md navbar-light bg-dark fixed-top">
-		<a class="navbar-brand"><img
-			src="https://blog.eduonix.com/wp-content/uploads/2018/12/eduonix-logo.png"></a>
-		<button type="button" class="navbar-toggler bg-light"
-			data-toggle="collapse" data-target="#nav">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-
-		<div class="collapse navbar-collapse justify-content-between" id="nav">
-			<ul class="navbar-nav">
-				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold px-3"
-					th:href="@{'/movies'}">ENGLISH</a></li>
-				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold px-3"
-					th:href="@{'/movierooms'}">MOVIE ROOMS</a></li>
-				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold px-3"
-					th:href="@{'/genres'}">GENRES</a></li>
-				<!-- <li class="nav-item dropdown" data-toggle="dropdown"><a
-					class="nav-link text-light font-weight-bold px-3 dropdown-toggle"
-					href="#">GENRES</a>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="#">Fast Food</a> <a
-							class="dropdown-item" href="#">Lunch</a> <a class="dropdown-item"
-							href="#">Dessert</a>
-					</div></li> -->
-				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold px-3"
-					th:href="@{'/popular'}">POPULAR MOVIES</a></li>
-
-				<li class="nav-item"><a
-					class="nav-link text-light font-weight-bold px-3"
-					th:href="@{'/moviesbylanguage?language=te'}">TELUGU</a></li>
-			</ul>
-		</div>
-	</nav>
-
-	<div class="container-fluid" style="margin-top: 70px;">
-		<div class="row" style="margin-top: 20px;">
+<nav th:replace="fragments/menuheader :: menuheader"></nav>
+	<div class="container-fluid">
+	<div th:replace="fragments/searchmenu :: searchmenu"></div>
+		<div class="row rowtop">
 			<div class="col-md-8">
 				<div class="row">
 					<div class=col-md-12>
@@ -114,36 +60,26 @@
 									<th>Votes</th>
 									<td th:text="${movie.rating.votes}"></td>
 								</tr>
-								<tr>
-									<th>Likes</th>
-									<td th:text="${movie.rating.loved}"></td>
-								</tr>
-								<tr>
-									<th>Dislikes</th>
-									<td th:text="${movie.rating.hated}"></td>
-								</tr>
-
 							</tbody>
 						</table>
-						<div style="margin-top: 10px;margin-bottom:20px;">
+						<div class="footer">
+						<div style="margin-left: 23%;">
 							<a class="btn btn-danger" th:href="${movie.trailer}" data-lity>Watch
 								Trailer</a>
+						</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-4" >
-				<div class="card" style="position: fixed;height:calc(100vh - 76px);border-radius: 1%;margin-right:10px;">
-					<img th:src="${movie.images.poster}" class="card-img-top" alt="..." style="height: 100%;border-radius: 1%;"> <a
-						th:href="@{'/showmovie?movieId='+${movie.imdb_id}}"
-						style="text-decoration: none;"> </a>
+			<div class="col-md-4" style="margin-left: -22px;">
+				<div class="card rightfixed">
+					<img th:src="${movie.images.poster}" class="card-img-top" alt="..." style="height: 100%;border-radius: 1%;">
 				</div>
 			</div>
 		</div>
 	</div>
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script th:src="@{/lity/lity.js}"></script>
 </html>

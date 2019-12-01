@@ -1,13 +1,10 @@
 <div class="row" th:if="${movies!=null and movies.size() &gt; 0}">
 	<div class="col-md-3 well" th:each="movie : ${movies}">
 		<div class="card">
-			<img th:src="${movie.backdrop_path!=null and movie.backdrop_path!='' and movie.backdrop_path!=undefined?'https://image.tmdb.org/t/p/w500_and_h282_bestv2/'+movie.backdrop_path:'http://www.reelviews.net/resources/img/default_poster.jpg'}" class="card-img-top" alt="..." style="height: 197px;"> <a
-				th:href="@{'/'+ ${(language!=null && language == 'te')?'showlangmovie': 'showdbmovie'}+'?movieId='+${movie.id}}"
-				style="text-decoration: none;">
+			<img th:src="${movie.backdrop_path!=null and movie.backdrop_path!='' and movie.backdrop_path!=undefined?'https://image.tmdb.org/t/p/w500_and_h282_bestv2/'+movie.backdrop_path:'http://www.reelviews.net/resources/img/default_poster.jpg'}" class="card-img-top" alt="..." style="height: 197px;"> 
+			<a th:href="@{'/'+ ${(language!=null && language == 'te')?'showlangmovie': 'showdbmovie'}+'?movieId='+${movie.id}}" style="text-decoration: none;">
 				<div class="card-body">
-					<h5 class="card-title"
-						th:text="${movie.title}">Movie
-						Title</h5>
+					<h5 class="card-title" th:text="${movie.title}">Movie Title</h5>
 				</div>
 			</a>
 		</div>

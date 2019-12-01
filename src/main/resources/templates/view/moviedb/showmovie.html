@@ -19,9 +19,7 @@
 	<div class="row rowtop">
 		<div class="col-md-4">
 			<div class="card fixedposition">
-				<img
-					th:src="${movie.poster_path!=null and movie.poster_path!='' and movie.poster_path!=undefined?'https://image.tmdb.org/t/p/w600_and_h900_bestv2'+movie.poster_path:'http://www.reelviews.net/resources/img/default_poster.jpg'}"
-					class="card-img-top" alt="..." style="height: 100%;border-radius: 1%;">
+				<img th:src="${movie.poster_path!=null and movie.poster_path!='' and movie.poster_path!=undefined?'https://image.tmdb.org/t/p/w600_and_h900_bestv2'+movie.poster_path:'http://www.reelviews.net/resources/img/default_poster.jpg'}" class="card-img-top" alt="..." style="height: 100%;border-radius: 1%;">
 			</div>
 		</div>
 		<div class="col-md-8">

@@ -33,7 +33,7 @@ public class PopcronController {
 		return "redirect:/movies/all";
 	}
 	
-	@GetMapping("/movies")
+	@GetMapping("/movie/popular")
 	public String movies(Model model) throws UnirestException {
 		model.addAttribute("genre", "");
 		model.addAttribute("keyword", "");
@@ -89,7 +89,7 @@ public class PopcronController {
 	}
 	
 	
-	@GetMapping("/movierooms")
+	@GetMapping("/movie/rooms")
 	public String getmovierooms(Model model) throws UnirestException{
 		HttpResponse<String> response = popcronService.getmovierooms();
 		
@@ -102,7 +102,7 @@ public class PopcronController {
 	}
 	
 	
-	@GetMapping("/getmovieroom/movies/{movieIndex}")
+	@GetMapping("/movie/room/movies/{movieIndex}")
 	public String getroommovies(@PathVariable String movieIndex, Model model) throws UnirestException{
 		HttpResponse<String> response = popcronService.getMoviesByIndex(movieIndex);
 		if(response.getStatus() == HttpStatus.OK.value()) {
