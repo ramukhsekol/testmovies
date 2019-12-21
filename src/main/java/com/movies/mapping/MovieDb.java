@@ -33,6 +33,8 @@ public class MovieDb {
 	private String genre;
 	private String trailer;
 	private String link;
+	private MovieCasting movieCasting;
+	private String movieId;
 
 	public Long getVote_count() {
 		return vote_count;
@@ -254,6 +256,34 @@ public class MovieDb {
 	 */
 	public void setTagline(String tagline) {
 		this.tagline = tagline;
+	}
+
+	/**
+	 * @return the movieCasting
+	 */
+	public MovieCasting getMovieCasting() {
+		return movieCasting;
+	}
+
+	/**
+	 * @param movieCasting the movieCasting to set
+	 */
+	public void setMovieCasting(MovieCasting movieCasting) {
+		this.movieCasting = movieCasting;
+	}
+
+	/**
+	 * @return the movieId
+	 */
+	public String getMovieId() {
+		return movieId;
+	}
+
+	/**
+	 * @param movieId the movieId to set
+	 */
+	public void setMovieId(String movieId) {
+		this.movieId = movieId;
 	}
 
 	@Override
