@@ -85,6 +85,31 @@ public class MoviedbRestController {
 		return new ResponseEntity<List<Languages>>(languages, HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/persons")
+	public ResponseEntity<List<Person>> persons(@RequestParam String pageIndex, @RequestParam String search) throws UnirestException, UnsupportedEncodingException {
+		JSONArray jsonArray = moviedbService.getpersons(pageIndex, search);
+		Gson gson = new Gson();
+		Type type = new TypeToken<List<Person>>() {
+		}.getType();
+		List<Person> persons = gson.fromJson(jsonArray.toString(), type);
+		return new ResponseEntity<List<Person>>(persons, HttpStatus.OK);
+	
+	}
+	
+	@GetMapping(value = "/getPerson")
+	public ResponseEntity<Person> getPerson(@RequestParam String personId, Model model) throws UnirestException, UnsupportedEncodingException {
+		HttpResponse<String> movieResponse = moviedbService.getPersonDetails(personId);
+		Gson gson = new Gson();
+		Type movieType = new TypeToken<Person>() {}.getType();
+		Person person = gson.fromJson(movieResponse.getBody(), movieType);
+		if(person!=null) {
+			List<MovieDb> movies  = moviedbService.getpersonmovies(personId);
+			person.setMovies(movies);
+		}
+		return new ResponseEntity<Person>(person, HttpStatus.OK);
+	}
+	
+	
 	@GetMapping(value = "showmovie")
 	public ResponseEntity<MovieDb> showmovie(@RequestParam String movieId) throws UnirestException, UnsupportedEncodingException {
 		HttpResponse<String> movieResponse = moviedbService.getMovieByMovieId(movieId);
@@ -195,20 +220,6 @@ public class MoviedbRestController {
 		
 		return new ResponseEntity<MovieDb>(movie, HttpStatus.OK);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
