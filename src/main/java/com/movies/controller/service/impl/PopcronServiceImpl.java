@@ -57,9 +57,4 @@ public class PopcronServiceImpl implements PopcronService {
 		HttpResponse<String> response = Unirest.get("https://tv-v2.api-fetch.website/movie/"+movieId).asString();
 		return response;
 	}
-
-	
-
-	
-
 }
