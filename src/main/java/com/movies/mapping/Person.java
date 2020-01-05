@@ -1,5 +1,7 @@
 package com.movies.mapping;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -14,6 +16,10 @@ public class Person {
 	private String deathday;
 	private String place_of_birth;
 	private String homepage;
+	private String biography;
+	private Integer gender;
+
+	private List<MovieDb> movies;
 
 	public Long getId() {
 		return id;
@@ -85,6 +91,48 @@ public class Person {
 
 	public void setHomepage(String homepage) {
 		this.homepage = homepage;
+	}
+
+	/**
+	 * @return the movies
+	 */
+	public List<MovieDb> getMovies() {
+		return movies;
+	}
+
+	/**
+	 * @param movies the movies to set
+	 */
+	public void setMovies(List<MovieDb> movies) {
+		this.movies = movies;
+	}
+
+	/**
+	 * @return the biography
+	 */
+	public String getBiography() {
+		return biography;
+	}
+
+	/**
+	 * @param biography the biography to set
+	 */
+	public void setBiography(String biography) {
+		this.biography = biography;
+	}
+
+	/**
+	 * @return the gender
+	 */
+	public Integer getGender() {
+		return gender;
+	}
+
+	/**
+	 * @param gender the gender to set
+	 */
+	public void setGender(Integer gender) {
+		this.gender = gender;
 	}
 
 }

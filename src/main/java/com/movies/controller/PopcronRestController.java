@@ -30,7 +30,17 @@ public class PopcronRestController {
 	@Autowired private PopcronService popcronService;
 	@Autowired private TicketService ticketService;
 	
-	@GetMapping(value = "/genres")
+	@GetMapping(value = "/popular")
+	public ResponseEntity<List<Movies>> popular(@RequestParam String pageIndex) throws UnirestException, UnsupportedEncodingException {
+		HttpResponse<String> response = popcronService.getMoviesById(pageIndex, "", "");
+		Gson gson = new Gson();
+		Type type = new TypeToken<List<Movies>>() {
+		}.getType();
+		List<Movies> movies = gson.fromJson(response.getBody(), type);
+		return new ResponseEntity<List<Movies>>(movies, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/genresss")
 	public ResponseEntity<List<String>> genres() throws UnirestException, UnsupportedEncodingException {
 		List<String> genres = new ArrayList<String>();
 		genres.add("Action");
@@ -59,7 +69,7 @@ public class PopcronRestController {
 		return new ResponseEntity<List<String>>(genres, HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/getmovies")
+	@GetMapping(value = "/getmoviessss")
 	public ResponseEntity<List<Movies>> getmovies(@RequestParam String pageIndex, @RequestParam String genre, @RequestParam String keyword) throws UnirestException, UnsupportedEncodingException {
 		HttpResponse<String> response = popcronService.getMoviesById(pageIndex, genre, keyword);
 		Gson gson = new Gson();
@@ -90,7 +100,7 @@ public class PopcronRestController {
 		return new ResponseEntity<List<Movies>>(movies, HttpStatus.OK);
 	}
 	
-	@GetMapping("/showmovie")
+	@GetMapping("/showmovieffffff")
 	public ResponseEntity<Movies> showmovie(@RequestParam String movieId) throws UnirestException {
 		Movies movie = new Movies();
 		HttpResponse<String> response = popcronService.getMoviesById(movieId);
@@ -102,7 +112,7 @@ public class PopcronRestController {
 		return new ResponseEntity<Movies>(movie, HttpStatus.OK);
 	}
 	
-	@GetMapping("/playmovie")
+	@GetMapping("/playmoviessss")
 	public ResponseEntity<Movies> playmovie(@RequestParam String movieId, @RequestParam String address) throws UnirestException, UnknownHostException {
 		Movies movie = new Movies();
 		HttpResponse<String> response = popcronService.getMoviesById(movieId);
