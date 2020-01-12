@@ -40,6 +40,42 @@ public class PopcronRestController {
 		return new ResponseEntity<List<Movies>>(movies, HttpStatus.OK);
 	}
 	
+	@GetMapping("/showpopularmovie")
+	public ResponseEntity<Movies> showpopularmovie(@RequestParam String movieId) throws UnirestException {
+		Movies movie = new Movies();
+		HttpResponse<String> response = popcronService.getMoviesById(movieId);
+		if(response.getStatus() == HttpStatus.OK.value()) {
+			Gson gson = new Gson();
+			Type type = new TypeToken<Movies>() {}.getType();
+			movie = gson.fromJson(response.getBody(), type);
+		}
+		return new ResponseEntity<Movies>(movie, HttpStatus.OK);
+	}
+	
+	@GetMapping("/playpopularmovie")
+	public ResponseEntity<Movies> playpopularmovie(@RequestParam String movieId, @RequestParam String ipAddress) throws UnirestException, UnknownHostException {
+		Movies movie = new Movies();
+		HttpResponse<String> response = popcronService.getMoviesById(movieId);
+		if(response.getStatus() == HttpStatus.OK.value()) {
+			Gson gson = new Gson();
+			Type type = new TypeToken<Movies>() {}.getType();
+			movie = gson.fromJson(response.getBody(), type);
+			HttpResponse<String> ticketresponse = ticketService.getMovieTricket(movieId, ipAddress);
+			movie.setLink("https://videospider.stream/getvideo?key=5HbImlTRhrrI7aEO&video_id="+movie.getImdb_id()+"&ticket="+ticketresponse.getBody());
+		}
+		return new ResponseEntity<Movies>(movie, HttpStatus.OK);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@GetMapping(value = "/genresss")
 	public ResponseEntity<List<String>> genres() throws UnirestException, UnsupportedEncodingException {
 		List<String> genres = new ArrayList<String>();
@@ -100,29 +136,7 @@ public class PopcronRestController {
 		return new ResponseEntity<List<Movies>>(movies, HttpStatus.OK);
 	}
 	
-	@GetMapping("/showmovieffffff")
-	public ResponseEntity<Movies> showmovie(@RequestParam String movieId) throws UnirestException {
-		Movies movie = new Movies();
-		HttpResponse<String> response = popcronService.getMoviesById(movieId);
-		if(response.getStatus() == HttpStatus.OK.value()) {
-			Gson gson = new Gson();
-			Type type = new TypeToken<Movies>() {}.getType();
-			movie = gson.fromJson(response.getBody(), type);
-		}
-		return new ResponseEntity<Movies>(movie, HttpStatus.OK);
-	}
 	
-	@GetMapping("/playmoviessss")
-	public ResponseEntity<Movies> playmovie(@RequestParam String movieId, @RequestParam String address) throws UnirestException, UnknownHostException {
-		Movies movie = new Movies();
-		HttpResponse<String> response = popcronService.getMoviesById(movieId);
-		if(response.getStatus() == HttpStatus.OK.value()) {
-			Gson gson = new Gson();
-			Type type = new TypeToken<Movies>() {}.getType();
-			movie = gson.fromJson(response.getBody(), type);
-			HttpResponse<String> ticketresponse = ticketService.getMovieTricket(movieId, address);
-			movie.setLink("https://videospider.stream/getvideo?key=5HbImlTRhrrI7aEO&video_id="+movie.getImdb_id()+"&ticket="+ticketresponse.getBody());
-		}
-		return new ResponseEntity<Movies>(movie, HttpStatus.OK);
-	}
+	
+	
 }
