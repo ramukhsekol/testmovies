@@ -19,6 +19,7 @@ public class Movies {
 	private String _id;
 	private String released;
 	private String link;
+	private String genre;
 
 	public Images getImages() {
 		return images;
@@ -122,6 +123,14 @@ public class Movies {
 
 	public void setLink(String link) {
 		this.link = link;
+	}
+
+	public String getGenre() {
+		return genre;
+	}
+
+	public void setGenre(String genre) {
+		this.genre = genre;
 	}
 
 }

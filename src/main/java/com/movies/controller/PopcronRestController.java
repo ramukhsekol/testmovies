@@ -70,6 +70,11 @@ public class PopcronRestController {
 			Type type = new TypeToken<Movies>() {}.getType();
 			movie = gson.fromJson(response.getBody(), type);
 		}
+		if(movie!=null && movie.getGenres()!=null && movie.getGenres().size()>0) {
+			String genre = String.join(", ", movie.getGenres());
+			movie.setGenre(genre);
+		}
+		
 		return new ResponseEntity<Movies>(movie, HttpStatus.OK);
 	}
 	
@@ -83,6 +88,10 @@ public class PopcronRestController {
 			movie = gson.fromJson(response.getBody(), type);
 			HttpResponse<String> ticketresponse = ticketService.getMovieTricket(movieId, ipAddress);
 			movie.setLink("https://videospider.stream/getvideo?key=5HbImlTRhrrI7aEO&video_id="+movie.getImdb_id()+"&ticket="+ticketresponse.getBody());
+		}
+		if(movie!=null && movie.getGenres()!=null && movie.getGenres().size()>0) {
+			String genre = String.join(", ", movie.getGenres());
+			movie.setGenre(genre);
 		}
 		return new ResponseEntity<Movies>(movie, HttpStatus.OK);
 	}
