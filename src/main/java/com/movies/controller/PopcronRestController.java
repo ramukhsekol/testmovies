@@ -40,6 +40,27 @@ public class PopcronRestController {
 		return new ResponseEntity<List<Movies>>(movies, HttpStatus.OK);
 	}
 	
+	@GetMapping("/movierooms")
+	public ResponseEntity<List<String>> getmovierooms() throws UnirestException{
+		HttpResponse<String> response = popcronService.getmovierooms();
+		Gson gson = new Gson();
+		Type type = new TypeToken<List<String>>() {}.getType();
+		List<String> movierooms = gson.fromJson(response.getBody(), type);
+		return new ResponseEntity<List<String>>(movierooms, HttpStatus.OK);
+	}
+	
+	@GetMapping("/movieroom/movies/{movieIndex}")
+	public ResponseEntity<List<Movies>> getroommovies(@PathVariable String movieIndex) throws UnirestException {
+		List<Movies> movies = new ArrayList<Movies>();
+		HttpResponse<String> response = popcronService.getMoviesByIndex(movieIndex);
+		if(response.getStatus() == HttpStatus.OK.value()) {
+			Gson gson = new Gson();
+			Type type = new TypeToken<List<Movies>>() {}.getType();
+			movies = gson.fromJson(response.getBody(), type);
+		}
+		return new ResponseEntity<List<Movies>>(movies, HttpStatus.OK);
+	}
+	
 	@GetMapping("/showpopularmovie")
 	public ResponseEntity<Movies> showpopularmovie(@RequestParam String movieId) throws UnirestException {
 		Movies movie = new Movies();
@@ -65,16 +86,6 @@ public class PopcronRestController {
 		}
 		return new ResponseEntity<Movies>(movie, HttpStatus.OK);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	@GetMapping(value = "/genresss")
 	public ResponseEntity<List<String>> genres() throws UnirestException, UnsupportedEncodingException {
@@ -114,29 +125,4 @@ public class PopcronRestController {
 		List<Movies> movies = gson.fromJson(response.getBody(), type);
 		return new ResponseEntity<List<Movies>>(movies, HttpStatus.OK);
 	}
-	
-	@GetMapping("/movierooms")
-	public ResponseEntity<List<String>> getmovierooms() throws UnirestException{
-		HttpResponse<String> response = popcronService.getmovierooms();
-		Gson gson = new Gson();
-		Type type = new TypeToken<List<String>>() {}.getType();
-		List<String> movierooms = gson.fromJson(response.getBody(), type);
-		return new ResponseEntity<List<String>>(movierooms, HttpStatus.OK);
-	}
-	
-	@GetMapping("/getmovieroom/movies/{movieIndex}")
-	public ResponseEntity<List<Movies>> getroommovies(@PathVariable String movieIndex) throws UnirestException {
-		List<Movies> movies = new ArrayList<Movies>();
-		HttpResponse<String> response = popcronService.getMoviesByIndex(movieIndex);
-		if(response.getStatus() == HttpStatus.OK.value()) {
-			Gson gson = new Gson();
-			Type type = new TypeToken<List<Movies>>() {}.getType();
-			movies = gson.fromJson(response.getBody(), type);
-		}
-		return new ResponseEntity<List<Movies>>(movies, HttpStatus.OK);
-	}
-	
-	
-	
-	
 }
