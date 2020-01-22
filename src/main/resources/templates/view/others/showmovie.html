@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Show Movie - All Sports Fantasy</title>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
+<link rel="stylesheet" th:href="@{/lity/lity.css}" />
+<link rel="stylesheet" th:href="@{/css/custom.css}" />
+<link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+<body>
+<nav th:replace="fragments/menuheader :: menuheader"></nav>
+<div class="container-fluid">
+<div th:replace="fragments/searchmenu :: searchmenu"></div>
+	<div class="row rowtop">
+		<div class="col-md-4">
+			<div class="card fixedposition" style="height: calc(100vh - 183px);">
+				<img th:src="${movie.movieImage}" class="card-img-top" alt="..." style="height: 100%;border-radius: 1%;"> 
+			</div>
+		</div>
+		<div class="col-md-8">
+			<table class="table table-striped">
+				<tbody>
+					<tr>
+						<th>Title</th>
+						<td th:text="${movie.movieName}"></td>
+					</tr>
+					<tr>
+						<th colspan="2">Description</th>
+					</tr>
+					<tr>
+						<td colspan="2"
+							th:text="${movie.movieDescription}"></td>
+					</tr>
+					<tr>
+						<th>Year</th>
+						<td th:text="${movie.movieYear}"></td>
+					</tr>
+					<tr th:each="description : ${descriptions}">
+						<td colspan="2" th:text="${description}">Duration</td>
+					</tr>
+				</tbody>
+			</table><br/><br/><br/><br/><br/>
+			
+			
+		</div>
+		<div class="footer" style="text-align:center;">
+			<div style="margin-left: 20px;">
+				<a class="btn btn-danger" data-lity style="margin-bottom:10px;" >TRAILER</a>
+				<a class="btn btn-success" th:each="links,iter : ${movie.movieLinks}"  th:href="${links.movieLink}" th:text="'SERVER' + ${iter.index + 1}" style="margin-left:10px;margin-bottom:10px;" data-lity>Watch Movie</a> 
+			</div>
+			</div>
+	</div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script th:src="@{/lity/lity.js}"></script>
+</html>
