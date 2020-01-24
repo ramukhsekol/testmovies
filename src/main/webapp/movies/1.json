@@ -1,5 +1,116 @@
 [
 	{
+		"id": 31,
+		"movieName": "Hotel Mumbai",
+		"movieInfo": "Directed by: Anthony Maras<br> Written by: John Collee, Anthony Maras<br> Starring by: Dev Patel, Armie Hammer, Nazanin Boniadi<br> Genres: Drama, History, Thriller<br> Country: Australia, USA, India<br> Language: Telugu",
+		"movieDescription": "Movie is about a gripping true story of humanity and heroism HOTEL MUMBAI vividly recounts the 2008 siege of the famed Taj Hotel by a group of terrorists in Mumbai, India. Among the dedicated hotel staff is the renowned chef Hemant Oberoi and a waiter who choose to risk their lives to protect their guests. As the world watches on a desperate couple is forced to make unthinkable sacrifices to protect their newborn child.",
+		"movieImage": "https://3movierulz.vc/wp-content/uploads/2020/01/Hotel-Mumbai-New-Telugu-Image.jpg",
+		"movieYear": 2019,
+		"movieLinks": []
+	},
+	{
+		"id": 32,
+		"movieName": "The Forgotten Army – Azaadi ke liye",
+		"movieInfo": "Starring by: Tj Bhanu, Rohit Chaudhary, Sunny Kaushal<br> Genres: History<br> Country: India<br> Language: Hindi",
+		"movieDescription": "This story begins in 1996 when Colonel Sodhi now 70 visits his sister and her family. However, even after over half a century, the nightmares of his intense battle and its aftermath often return to haunt him. Old Sodhi and young Amar begin to bond and Sodhi accompanies Amar to Burma (Myanmar) for an assignment from BBC to shoot a documentary on the students against the Military Junta for freedom and democracy.",
+		"movieImage": "https://3movierulz.vc/wp-content/uploads/2020/01/The-Forgotten-Army-Azaadi-ke-liye-Poster.jpg",
+		"movieYear": 2020,
+		"movieLinks": []
+	},
+	{
+		"id": 33,
+		"movieName": "Mathu Vadalara",
+		"movieInfo": "Directed and written by: Ritesh Rana<br> Starring by: Sri Simha Koduri, Athulya Chandra, Naresh Agastya<br> Genres: Drama<br> Country: India<br> Language: Telugu",
+		"movieDescription": "Movie story start with Babu Mohan is a courier boy by profession. Upset by his poor life he decides to cheat his customers and make money. He targets a special apartment for his loot and right when he manages to rob a lady, she dies on the stop.",
+		"movieImage": "https://3movierulz.vc/wp-content/uploads/2019/12/Mathu-Vadalara-Poster.jpg",
+		"movieYear": 2019,
+		"movieLinks": [
+			{
+				"movieLink": "https://etcscrs.com/?p=53923"
+			},
+			{
+				"movieLink": "https://etcsr1.com/?p=40090"
+			},
+			{
+				"movieLink": "https://videobin.co/9fj6k9i2wcg6"
+			},
+			{
+				"movieLink": "https://etcrips.com/?p=21526"
+			},
+			{
+				"movieLink": "https://oneload.xyz/mygkxs6wzwza"
+			},
+			{
+				"movieLink": "https://vup.to/73dkuy8t1d1n.html"
+			},
+			{
+				"movieLink": "https://vidoza.net/2u1ntw10rf4f.html"
+			}
+		]
+	},
+	{
+		"id": 34,
+		"movieName": "Parichayam",
+		"movieInfo": "Directed and written by: Lakshmikanth Chenna<br> Starring by: Simrat Kaur, Virat Konduru<br> Genres: Romance<br> Country: India<br> Language: Telugu",
+		"movieDescription": "Movie is about Anand and Lakshmi who are childhood friends fall in love with each other. When everything seems to be going fine a small family disturbance causes Lakshmi to lose her memory.",
+		"movieImage": "https://3movierulz.vc/wp-content/uploads/2020/01/Parichayam-New-Image.jpg",
+		"movieYear": 2018,
+		"movieLinks": [
+			{
+				"movieLink": "https://etcscrs.com/?p=53920"
+			},
+			{
+				"movieLink": "https://etcsr1.com/?p=40087"
+			},
+			{
+				"movieLink": "https://videobin.co/kgrrzk6fjuky"
+			},
+			{
+				"movieLink": "https://etcrips.com/?p=21523"
+			},
+			{
+				"movieLink": "https://oneload.xyz/cz9jgoef17pq"
+			},
+			{
+				"movieLink": "https://vup.to/gx2rnzuu8lgf.html"
+			},
+			{
+				"movieLink": "https://vidoza.net/2b6twhm984ju.html"
+			}
+		]
+	},
+	{
+		"id": 35,
+		"movieName": "Operation Red Sea",
+		"movieInfo": "Directed by: Dante Lam<br> Written by: Zhuzhu Chen, Ji Feng<br> Starring by: Yi Zhang, Johnny Huang, Hai-Qing<br> Genres: Action, Drama, Thriller, War<br> Country: China<br> Language: Telugu",
+		"movieDescription": "Movie about PLA Navy Marine Corps launch a hostage rescue operation in the fictional Republic of Ihwea and undergo a fierce battle with rebellions and terrorism.",
+		"movieImage": "https://3movierulz.vc/wp-content/uploads/2020/01/Operation-Red-Sea-Telugu-New-Image.jpg",
+		"movieYear": 2018,
+		"movieLinks": [
+			{
+				"movieLink": "https://etcscrs.com/?p=53906"
+			},
+			{
+				"movieLink": "https://etcsr1.com/?p=40078"
+			},
+			{
+				"movieLink": "https://videobin.co/k8r6ypb6idnd"
+			},
+			{
+				"movieLink": "https://etcrips.com/?p=21514"
+			},
+			{
+				"movieLink": "https://oneload.xyz/5xchglvrqcgq"
+			},
+			{
+				"movieLink": "https://vup.to/8h1ksgu8ljct.html"
+			},
+			{
+				"movieLink": "https://vidoza.net/nevcbn0ok1qv.html"
+			}
+		]
+	},
+	{
 		"id": 19,
 		"movieName": "Chennai Express ",
 		"movieInfo": "Directed by: Rohit Shetty<br>Written by: K. Subhash, Yunus Sajawal<br>Starring by: Deepika Padukone, Shah Rukh Khan, Sathyaraj<br>Genres: Action, Comedy, Romance<br>Country: India<br>Language: Telugu",

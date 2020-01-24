@@ -16,11 +16,11 @@ public class JSONController {
 	
 	@GetMapping(value = "generatejson")
 	public void genereateJson() {
-		int[] missednumbers = {78};
+		int[] missednumbers = {1};
 		for(int i = 0; i<missednumbers.length; i++) {
 			List<Movie> movies = jsonService.getMovies(missednumbers[i]);
 			if(movies!=null && movies.size()>0) {
-				boolean isFlag = jsonService.generateJsonFile(missednumbers[i], movies);
+				boolean isFlag = jsonService.generateJsonFile(0, movies);
 				if(isFlag) {
 					
 				}
