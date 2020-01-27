@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<meta charset="ISO-8859-1" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>English Movies - Movie Fantasy</title>
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
+<link rel="stylesheet" th:href="@{/css/custom.css}" />
+<link rel="stylesheet" th:href="@{/css/main.css}" />
+<style>
+.movies-letter {
+    display: block;
+    margin: 20px -.25% 10px;
+}
+.movies-letter a.btn-letter {
+    background: #333;
+    color: #fff;
+}
+.movies-letter a.btn-letter {
+    float: left;
+    width: 3.2%;
+    margin: 0 .25% .8%;
+    padding: 5px 1px;
+    border-radius: 3px!important;
+    overflow: hidden;
+    font-size: 14px;
+    box-shadow: none;
+}
+.movies-letter a.btn-letter.active {
+    background: #0397d6;
+    color: #fff;
+}
+</style>
+
+</head>
+<body>
+	<nav th:replace="fragments/menuheader :: menuheader"></nav>
+	<div class="container-fluid">
+		<div th:replace="fragments/searchmenu :: searchmenu"></div>
+		<div class="rowtop" style="margin-top: 70px;">
+			<div class="ml-alphabet">
+				<div class="movies-letter">
+					<a class="btn btn-letter "
+						th:href="${'/movie/zero'}">0-9</a> <a
+						class="btn btn-letter"
+						th:href="${'/movie/A'}">A</a><a
+						class="btn btn-letter"
+						th:href="${'/movie/B'}">B</a><a
+						class="btn btn-letter"
+						th:href="${'/movie/C'}">C</a><a
+						class="btn btn-letter"
+						th:href="${'/movie/D'}">D</a><a
+						class="btn btn-letter"
+						th:href="${'/movie/E'}">E</a><a
+						class="btn btn-letter"
+						th:href="${'/movie/F'}">F</a><a
+						class="btn btn-letter"
+						th:href="${'/movie/G'}">G</a><a
+						class="btn btn-letter"
+						th:href="${'/movie/H'}">H</a><a
+						class="btn btn-letter active"
+						th:href="${'/movie/I'}">I</a><a
+						class="btn btn-letter"
+						th:href="${'/movie/J'}">J</a><a
+						class="btn btn-letter"
+						th:href="${'/movie/K'}">K</a><a
+						class="btn btn-letter"
+						th:href="${'/movie/L'}">L</a><a
+						class="btn btn-letter"
+						th:href="${'/movie/M'}">M</a><a
+						class="btn btn-letter"
+						th:href="${'/movie/N'}">N</a><a
+						class="btn btn-letter"
+						th:href="${'/movie/O'}">O</a><a
+						class="btn btn-letter"
+						th:href="${'/movie/P'}">P</a><a
+						class="btn btn-letter"
+						th:href="${'/movie/Q'}">Q</a><a
+						class="btn btn-letter"
+						th:href="${'/movie/R'}">R</a><a
+						class="btn btn-letter"
+						th:href="${'/movie/S'}">S</a><a
+						class="btn btn-letter"
+						th:href="${'/movie/T'}">T</a><a
+						class="btn btn-letter"
+						th:href="${'/movie/U'}">U</a><a
+						class="btn btn-letter"
+						th:href="${'/movie/V'}">V</a><a
+						class="btn btn-letter"
+						th:href="${'/movie/W'}">W</a><a
+						class="btn btn-letter"
+						th:href="${'/movie/X'}">X</a><a
+						class="btn btn-letter"
+						th:href="${'/movie/Y'}">Y</a><a
+						class="btn btn-letter"
+						th:href="${'/movie/Z'}">Z</a>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+			<div id="appenddata"></div>
+		</div>
+	</div>
+</body>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+
+<script type="text/javascript" th:inline="javascript">
+$(function() {
+	var pageIndex = 1;
+	var movietype = [[${movietype}]];
+	$.get("/getalphamovies?pageIndex=" + pageIndex + "&movietype=" + movietype, function(response) {
+		$("#appenddata").append(response);
+	});
+	
+	
+	$(document.body).on('touchmove', onMobileScroll); // for mobile
+	$(window).on('scroll', onWebScroll); // for web
+	
+	
+	function onMobileScroll() {
+		if ($(window).scrollTop() + window.innerHeight >= document.body.scrollHeight) {
+			pageIndex = pageIndex + 1;
+			$.get("/getalphamovies?pageIndex=" + pageIndex + "&movietype=" + movietype, function(response) {
+				$("#appenddata").append(response);
+			});
+		}
+	}
+
+	// callback
+	function onWebScroll() {
+		if($(window).scrollTop() + $(window).height() == getDocHeight()) {
+			pageIndex = pageIndex + 1;
+			$.get("/getalphamovies?pageIndex=" + pageIndex + "&movietype=" + movietype, function(response) {
+				$("#appenddata").append(response);
+			});
+		}
+	}
+	
+	function getDocHeight() {
+	    var D = document;
+	    return Math.max(
+	        D.body.scrollHeight, D.documentElement.scrollHeight,
+	        D.body.offsetHeight, D.documentElement.offsetHeight,
+	        D.body.clientHeight, D.documentElement.clientHeight
+	    );
+	}
+
+});
+</script>
+</html>

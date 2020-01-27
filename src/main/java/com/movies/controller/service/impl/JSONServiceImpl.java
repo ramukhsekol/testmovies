@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.movies.controller.service.JSONService;
 import com.movies.controller.service.UploadPathService;
+import com.movies.dto.Alphamovies;
 import com.movies.dto.Movie;
 import com.movies.dto.MovieLinks;
 
@@ -127,6 +128,116 @@ public class JSONServiceImpl implements JSONService {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			List<Movie> movies = Arrays.asList(objectMapper.readValue(file, Movie[].class));
+			return movies;
+		} catch (IOException e) {
+		}
+		return null;
+	}
+
+	@Override
+	public List<Alphamovies> getAplhaMovies(int sindex) {
+		try {
+			List<Alphamovies> movies = new ArrayList<Alphamovies>();
+			Document doc = Jsoup.connect("https://ww.0123movies.su/library/X/page/"+sindex+"/").timeout(10000).validateTLSCertificates(false).get();
+			Element body =  doc.body();
+			Elements elements = body.getElementsByClass("mlnh-thumb");
+			int index = 1;
+			for(Element element : elements) {
+				Alphamovies apAlphamovies = new Alphamovies();
+					apAlphamovies.setId((long)index);
+				Element link = element.select("a").first();
+				String linkHref = link.attr("href");
+				Document document = Jsoup.connect(linkHref).timeout(10000).validateTLSCertificates(false).get();
+				Element documentbody =  document.body();
+				Element pelement = documentbody.getElementById("mv-info");
+				Element plink = pelement.select("a").first();
+				String plinkHref = plink.attr("href");
+				Document cdocument = Jsoup.connect(plinkHref).timeout(10000).validateTLSCertificates(false).get();
+				Element cdocumentbody =  cdocument.body();
+				Element pcelement = cdocumentbody.getElementById("server-1");
+				if(pcelement!=null) {
+					Element pclink = pcelement.select("a").first();
+					String pclinkHref = pclink.attr("data-svv1");
+						apAlphamovies.setLink("https://vidcloud9.com/streaming.php?"+pclinkHref);
+					Elements imageLink = cdocumentbody.getElementsByClass("mvic-thumb");
+					Element movieimage = imageLink.select("img").first();
+					String image = movieimage.absUrl("src");
+						apAlphamovies.setImage(image);
+					Elements tiltleLink = cdocumentbody.getElementsByClass("mvic-desc");
+					Element movietitle = tiltleLink.select("h3").first();
+						apAlphamovies.setName(movietitle.text());
+					Elements descLink = cdocumentbody.getElementsByClass("desc");
+					String moviedesc = descLink.text();
+						apAlphamovies.setDescription(moviedesc);
+					Elements infoLink = cdocumentbody.getElementsByClass("mvic-info");
+					Elements dataLink = infoLink.select("p");
+					System.out.println(movietitle.text()+" "+pclinkHref+" "+image+" "+moviedesc);
+					for(Element info : dataLink) {
+						String data = info.text();
+						if(data!=null) {
+							String[] spilt = data.split(":");
+							if(spilt!=null && spilt.length>1) {
+								if(spilt[0].equalsIgnoreCase("Genre")) {
+									String genre = spilt[1]!=null?spilt[1].trim():null;
+									apAlphamovies.setGenre(genre);
+								} else if(spilt[0].equalsIgnoreCase("Director")) {
+									String director = spilt[1]!=null?spilt[1].trim():null;
+									apAlphamovies.setDirector(director);
+								} else if(spilt[0].equalsIgnoreCase("Country")) {
+									String country = spilt[1]!=null?spilt[1].trim():null;
+									apAlphamovies.setCountry(country);
+								} else if(spilt[0].equalsIgnoreCase("Duration")) {
+									String duration = spilt[1]!=null?spilt[1].trim():null;
+									apAlphamovies.setDuration(duration);
+								} else if(spilt[0].equalsIgnoreCase("Quality")) {
+									String quality = spilt[1]!=null?spilt[1].trim():null;
+									apAlphamovies.setQuality(quality);
+								} else if(spilt[0].equalsIgnoreCase("Release")) {
+									String year = spilt[1]!=null?spilt[1].trim():null;
+									Integer iYear = (year!=null && year!="")?Integer.parseInt(year):0;
+									apAlphamovies.setYear(iYear);
+								} else if(spilt[0].equalsIgnoreCase("IMDb")) {
+									String rating = spilt[1]!=null?spilt[1].trim():null;
+									apAlphamovies.setRating(rating);
+								} else if(spilt[0].equalsIgnoreCase("Writer")) {
+									String writer = spilt[1]!=null?spilt[1].trim():null;
+									apAlphamovies.setWriter(writer);
+								}
+							}
+						}
+					}
+				}
+				movies.add(apAlphamovies);
+				index++;
+			}
+			System.out.println(movies.size());
+			return movies;
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public boolean generateAlphaJsonFile(int index, List<Alphamovies> movies) {
+		File file = uploadPathService.getFilePath(index + ".json", "alpha/x");
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
+			objectMapper.writeValue(file, movies);
+			return true;
+			
+		}catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public List<Alphamovies> getMoviesByIndex(String movietype, String pageIndex) {
+		File file = uploadPathService.getFilePath(pageIndex + ".json", "alpha/"+movietype.toLowerCase());
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
+			List<Alphamovies> movies = Arrays.asList(objectMapper.readValue(file, Alphamovies[].class));
 			return movies;
 		} catch (IOException e) {
 		}

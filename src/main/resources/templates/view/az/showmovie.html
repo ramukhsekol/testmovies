@@ -16,8 +16,8 @@
 <div th:replace="fragments/searchmenu :: searchmenu"></div>
 	<div class="row rowtop">
 		<div class="col-md-4">
-			<div class="card fixedposition" style="height: calc(100vh - 183px);">
-				<img th:src="${movie.movieImage}" class="card-img-top" alt="..." style="height: 100%;border-radius: 1%;"> 
+			<div class="card fixedposition">
+				<img th:src="${movie.image}" class="card-img-top" alt="..." style="height: 100%;border-radius: 1%;"> 
 			</div>
 		</div>
 		<div class="col-md-8">
@@ -25,33 +25,56 @@
 				<tbody>
 					<tr>
 						<th>Title</th>
-						<td th:text="${movie.movieName}"></td>
+						<td th:text="${movie.name}"></td>
 					</tr>
 					<tr>
 						<th colspan="2">Description</th>
 					</tr>
 					<tr>
 						<td colspan="2"
-							th:text="${movie.movieDescription}"></td>
+							th:text="${movie.description}"></td>
 					</tr>
-					<tr>
+					<tr th:if="${movie.year!=null}">
 						<th>Year</th>
-						<td th:text="${movie.movieYear}"></td>
+						<td th:text="${movie.year}"></td>
 					</tr>
-					<tr th:each="description : ${descriptions}">
-						<td colspan="2" th:text="${description}">Duration</td>
+					<tr th:if="${movie.duration!=null}">
+						<th>Duration</th>
+						<td th:text="${movie.duration}"></td>
+					</tr>
+					<tr th:if="${movie.genre!=null}">
+						<th>Genres</th>
+						<td th:text="${movie.genre}"></td>
+					</tr>
+					<tr th:if="${movie.director!=null}">
+						<th>Direction</th>
+						<td th:text="${movie.director}"></td>
+					</tr>
+					<tr th:if="${movie.writer!=null}">
+						<th>Writer</th>
+						<td th:text="${movie.writer}"></td>
+					</tr>
+					<tr th:if="${movie.country!=null}">
+						<th>Country</th>
+						<td th:text="${movie.country}"></td>
+					</tr>
+					<tr th:if="${movie.quality!=null}">
+						<th>Quality</th>
+						<td th:text="${movie.quality}"></td>
+					</tr>
+					<tr th:if="${movie.rating!=null}">
+						<th>Rating</th>
+						<td th:text="${movie.rating}"></td>
 					</tr>
 				</tbody>
-			</table><br/><br/><br/><br/><br/>
-			
-			
-		</div>
-		<div class="footer" style="text-align:center;">
+			</table><br/><br/>
+			<div class="footer">
 			<div style="margin-left: 20px;">
-				<a class="btn btn-danger" id="appendtrailer" data-lity style="margin-bottom:10px;" >TRAILER</a>
-				<a class="btn btn-success" th:each="links,iter : ${movie.movieLinks}"  th:href="${links.movieLink}" th:text="'SERVER' + ${iter.index + 1}" style="margin-left:10px;margin-bottom:10px;" data-lity>Watch Movie</a> 
+				<a class="btn btn-success"  th:href="@{'/playalphamovie?movieId='+${movie.id}+'&pageIndex='+${pageIndex}+'&movietype='+${movietype}}">Watch Movie</a> 
+				<a class="btn btn-danger" id="appendtrailer" data-lity>Watch Trailer</a>
 			</div>
 			</div>
+		</div>
 	</div>
 </div>
 </body>

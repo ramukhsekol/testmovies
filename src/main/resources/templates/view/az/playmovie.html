@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Movie - All Sports Fantasy</title>
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
+<link rel="stylesheet" th:href="@{/lity/lity.css}" />
+<link rel="stylesheet" th:href="@{/css/custom.css}" />
+<link rel="stylesheet" th:href="@{/css/main.css}" />
+<style>
+.frameheight {
+	height: 493px;
+	width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+	.frameheight {
+		height: 260px;
+		width: 100%;
+	}
+}
+</style>
+</head>
+<body>
+	<nav th:replace="fragments/menuheader :: menuheader"></nav>
+	<div class="container-fluid">
+		<div th:replace="fragments/searchmenu :: searchmenu"></div>
+		<div class="row rowtop">
+			<div class="col-md-8">
+				<div class="row">
+					<div class=col-md-12>
+						<iframe th:src="${movie.link}" class="frameheight"
+							allowscriptaccess="always" allowfullscreen="true" scrolling="no"></iframe>
+					</div>
+					<div class="col-md-12">
+						<table class="table table-striped">
+							<tbody>
+								<tr>
+									<th>Title</th>
+									<td th:text="${movie.name}"></td>
+								</tr>
+								<tr>
+									<th colspan="2">Description</th>
+								</tr>
+								<tr>
+									<td colspan="2" th:text="${movie.description}"></td>
+								</tr>
+								<tr th:if="${movie.year!=null}">
+									<th>Year</th>
+									<td th:text="${movie.year}"></td>
+								</tr>
+								<tr th:if="${movie.duration!=null}">
+									<th>Duration</th>
+									<td th:text="${movie.duration}"></td>
+								</tr>
+								<tr th:if="${movie.genre!=null}">
+									<th>Genres</th>
+									<td th:text="${movie.genre}"></td>
+								</tr>
+								<tr th:if="${movie.director!=null}">
+									<th>Direction</th>
+									<td th:text="${movie.director}"></td>
+								</tr>
+								<tr th:if="${movie.writer!=null}">
+									<th>Writer</th>
+									<td th:text="${movie.writer}"></td>
+								</tr>
+								<tr th:if="${movie.country!=null}">
+									<th>Country</th>
+									<td th:text="${movie.country}"></td>
+								</tr>
+								<tr th:if="${movie.quality!=null}">
+									<th>Quality</th>
+									<td th:text="${movie.quality}"></td>
+								</tr>
+								<tr th:if="${movie.rating!=null}">
+									<th>Rating</th>
+									<td th:text="${movie.rating}"></td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="footer">
+							<div style="margin-left: 23%;">
+								<a class="btn btn-danger" id="appendtrailer" data-lity>Watch Trailer</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4" style="margin-left: -22px;">
+				<div class="card rightfixed" style="width: 32.8%">
+					<img th:src="${movie.image}" class="card-img-top" alt="..."
+						style="height: 100%; border-radius: 1%;">
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script th:src="@{/lity/lity.js}"></script>
+<script type="text/javascript" src="https://unpkg.com/movie-trailer@2.0.3/index.js"></script>
+<script type="text/javascript" th:inline="javascript">
+var movieName  = [[${movieName}]];
+var year  = [[${year}]];
+$(function() {
+	movieTrailer(movieName, year).then( response => {
+		console.log( response );
+		$("#appendtrailer").attr("href", response);
+	});
+})
+</script>
+</html>
