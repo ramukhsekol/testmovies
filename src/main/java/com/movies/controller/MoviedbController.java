@@ -271,13 +271,12 @@ public class MoviedbController {
 				trailer = trailers.get(0).getKey();
 			}
 		}
-		String movieLink = moviedbService.getYoutubeMovies(movie.getTitle());
-		if(StringUtils.hasText(movieLink)) {
-			model.addAttribute("link", movieLink);
-		} else {
-			model.addAttribute("link", null);
-		}
-		
+		/*
+		 * String movieLink = moviedbService.getYoutubeMovies(movie.getTitle());
+		 * if(StringUtils.hasText(movieLink)) { model.addAttribute("link", movieLink); }
+		 * else { model.addAttribute("link", null); }
+		 */
+		model.addAttribute("link", null);
 		HttpResponse<String> movieCastResponse = moviedbService.getMovieCastByMovieId(movieId);
 		Type movieCast = new TypeToken<MovieCasting>() {}.getType();
 		MovieCasting movieCasting = gson.fromJson(movieCastResponse.getBody(), movieCast);
