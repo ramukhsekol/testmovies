@@ -226,16 +226,14 @@ public class MoviedbController {
 		model.addAttribute("movieCasting", movieCasting);
 		model.addAttribute("movieId", movieId);
 		model.addAttribute("trailer", trailer);
-		if(movie!=null && StringUtils.hasText(movie.getOriginal_language())) {
-			String movieLink = moviedbService.getYoutubeMovies(movie.getTitle());
-			if(StringUtils.hasText(movieLink)) {
-				model.addAttribute("link", movieLink);
-			} else {
-				model.addAttribute("link", null);
-			}
-		} else {
-			model.addAttribute("link", null);
-		}
+		/*
+		 * if(movie!=null && StringUtils.hasText(movie.getOriginal_language())) { String
+		 * movieLink = moviedbService.getYoutubeMovies(movie.getTitle());
+		 * if(StringUtils.hasText(movieLink)) { model.addAttribute("link", movieLink); }
+		 * else { model.addAttribute("link", null); } } else {
+		 * model.addAttribute("link", null); }
+		 */
+		model.addAttribute("link", null);
 		return "view/moviedb/showmovie";
 	}
 	
