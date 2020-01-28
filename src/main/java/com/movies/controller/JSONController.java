@@ -31,7 +31,7 @@ public class JSONController {
 	
 	@GetMapping(value = "generatealphajson")
 	public void testmovies() {
-		for(int i = 1; i<3; i++) {
+		for(int i = 1; i<4; i++) {
 			List<Alphamovies> movies = jsonService.getAplhaMovies(i);
 			if(movies!=null && movies.size()>0) {
 				boolean isFlag = jsonService.generateAlphaJsonFile(i, movies);
