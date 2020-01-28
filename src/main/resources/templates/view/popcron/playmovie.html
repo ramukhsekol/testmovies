@@ -10,6 +10,19 @@
 <link rel="stylesheet" th:href="@{/lity/lity.css}" />
 <link rel="stylesheet" th:href="@{/css/custom.css}" />
 <link rel="stylesheet" th:href="@{/css/main.css}" />
+<style>
+.frameheight {
+	height: 510px;
+	width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+	.frameheight {
+		height: 283px;
+		width: 100%;
+	}
+}
+</style>
 </head>
 <body>
 <nav th:replace="fragments/menuheader :: menuheader"></nav>
@@ -19,7 +32,7 @@
 			<div class="col-md-8">
 				<div class="row">
 					<div class=col-md-12>
-						<iframe th:src="${link}" style="height: 496px; width: 100%"
+						<iframe th:src="${link}" class="frameheight"
 							allowscriptaccess="always" allowfullscreen="true" scrolling="no"></iframe>
 					</div>
 					<div class="col-md-12">
