@@ -138,7 +138,7 @@ public class JSONServiceImpl implements JSONService {
 	public List<Alphamovies> getAplhaMovies(int sindex) {
 		try {
 			List<Alphamovies> movies = new ArrayList<Alphamovies>();
-			Document doc = Jsoup.connect("https://ww.0123movies.su/library/U/page/"+sindex+"/").timeout(10000).validateTLSCertificates(false).get();
+			Document doc = Jsoup.connect("https://ww.0123movies.su/library/A/page/"+sindex+"/").timeout(10000).validateTLSCertificates(false).get();
 			Element body =  doc.body();
 			Elements elements = body.getElementsByClass("mlnh-thumb");
 			int index = 1;
@@ -221,7 +221,7 @@ public class JSONServiceImpl implements JSONService {
 
 	@Override
 	public boolean generateAlphaJsonFile(int index, List<Alphamovies> movies) {
-		File file = uploadPathService.getFilePath(index + ".json", "alpha/u");
+		File file = uploadPathService.getFilePath(index + ".json", "alpha/a");
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			objectMapper.writeValue(file, movies);

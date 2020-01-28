@@ -31,10 +31,11 @@ public class JSONController {
 	
 	@GetMapping(value = "generatealphajson")
 	public void testmovies() {
-		for(int i = 1; i<4; i++) {
-			List<Alphamovies> movies = jsonService.getAplhaMovies(i);
+		int[] missednumbers = {23};
+		for(int i = 0; i<missednumbers.length; i++) {
+			List<Alphamovies> movies = jsonService.getAplhaMovies(missednumbers[i]);
 			if(movies!=null && movies.size()>0) {
-				boolean isFlag = jsonService.generateAlphaJsonFile(i, movies);
+				boolean isFlag = jsonService.generateAlphaJsonFile(missednumbers[i], movies);
 				if(isFlag) {
 					
 				}
