@@ -17,28 +17,22 @@ public class JSONController {
 	
 	@GetMapping(value = "generatejson")
 	public void genereateJson() {
-		int[] missednumbers = {1};
+		int[] missednumbers = {11,12,13,14,15,16,17,18,19,20};
 		for(int i = 0; i<missednumbers.length; i++) {
 			List<Movie> movies = jsonService.getMovies(missednumbers[i]);
-			if(movies!=null && movies.size()>0) {
-				boolean isFlag = jsonService.generateJsonFile(0, movies);
-				if(isFlag) {
-					
-				}
+			if(movies!=null && !movies.isEmpty()) {
+				jsonService.generateJsonFile(missednumbers[i], movies);
 			}
 		}
 	}
 	
 	@GetMapping(value = "generatealphajson")
 	public void testmovies() {
-		int[] missednumbers = {3,4,5,6};
+		int[] missednumbers = {12};
 		for(int i = 0; i<missednumbers.length; i++) {
 			List<Alphamovies> movies = jsonService.getAplhaMovies(missednumbers[i]);
-			if(movies!=null && movies.size()>0) {
-				boolean isFlag = jsonService.generateAlphaJsonFile(missednumbers[i], movies);
-				if(isFlag) {
-					
-				}
+			if(movies!=null && !movies.isEmpty()) {
+				jsonService.generateAlphaJsonFile(missednumbers[i], movies);
 			}
 		}	
 
