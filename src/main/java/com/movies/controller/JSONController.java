@@ -28,7 +28,7 @@ public class JSONController {
 	
 	@GetMapping(value = "generatealphajson")
 	public void testmovies() {
-		int[] missednumbers = {12};
+		int[] missednumbers = {12,13,16,17,20,21,22,23,24};
 		for(int i = 0; i<missednumbers.length; i++) {
 			List<Alphamovies> movies = jsonService.getAplhaMovies(missednumbers[i]);
 			if(movies!=null && !movies.isEmpty()) {
